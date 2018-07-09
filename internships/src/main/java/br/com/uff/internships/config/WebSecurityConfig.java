@@ -26,10 +26,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private DataSource dataSource;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	@Autowired
 	private CustomAccessDeniedHandler customAccessDeniedHandler;
 
@@ -43,25 +43,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-        .authorizeRequests()
-            .antMatchers("/", "/home").permitAll()
-            .anyRequest().authenticated()
-            .and()
-        .formLogin()
-            .loginPage("/login").failureUrl("/login?error=true")
-			.defaultSuccessUrl("/hello")
-			.usernameParameter("email")
-			.passwordParameter("password").permitAll()
-            .and()
-        .logout()
-            .permitAll().and().
-            exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
+		http.authorizeRequests().antMatchers("/", "/home").permitAll()
+				.anyRequest().authenticated().and().formLogin().loginPage("/login").failureUrl("/login?error=true")
+				.defaultSuccessUrl("/hello").usernameParameter("email").passwordParameter("password").permitAll().and()
+				.logout().permitAll().and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
 
 	}
 
-	/*@Override
+	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
-	}*/
+		web.ignoring().antMatchers("/css/**", "/js/**", "/webjars/**");
+	}
 }

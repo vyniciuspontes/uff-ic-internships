@@ -12,7 +12,7 @@ public class RegistrationUserForm {
 
 	@NotEmpty
 	@NotNull
-	private String birthDate;
+	private String bornDate;
 	
 	@NotEmpty
 	@NotNull
@@ -44,12 +44,12 @@ public class RegistrationUserForm {
 		this.name = name;
 	}
 
-	public String getBirthDate() {
-		return birthDate;
+	public String getBornDate() {
+		return bornDate;
 	}
 
-	public void setBirthDate(String birthDate) {
-		this.birthDate = birthDate;
+	public void setBornDate(String bornDate) {
+		this.bornDate = bornDate;
 	}
 
 	public String getEmail() {

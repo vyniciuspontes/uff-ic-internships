@@ -24,8 +24,8 @@ public class User implements Serializable {
 	private String address;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "birth_date", nullable = false)
-	private Date birthDate;
+	@Column(name = "born_date", nullable = false)
+	private Date bornDate;
 
 	@Column(length = 100)
 	private String complement;
@@ -66,12 +66,12 @@ public class User implements Serializable {
 		this.address = address;
 	}
 
-	public Date getBirthDate() {
-		return this.birthDate;
+	public Date getBornDate() {
+		return this.bornDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setBornDate(Date bornDate) {
+		this.bornDate = bornDate;
 	}
 
 	public String getComplement() {
@@ -124,7 +124,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", address=" + address + ", birthDate=" + birthDate + ", complement=" + complement
+		return "User [id=" + id + ", address=" + address + ", bornDate=" + bornDate + ", complement=" + complement
 				+ ", email=" + email + ", name=" + name + ", password=" + password + ", city=" + city + ", resume="
 				+ resume + "]";
 	}

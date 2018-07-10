@@ -1,6 +1,6 @@
 <html>
 
-<head th:include="fragments/header :: head(title='registration')"></head>
+<head th:include="fragments/general :: head(title='registration')"></head>
 
 
 <body>
@@ -18,19 +18,23 @@
 								method="post" class="form" role="form">
 								<div class="form-row">
 									<div class="form-group col-md-4">
-										<input type="text" th:field="*{name}" placeholder="Name"
-											class="form-control"
+										<label for="name-input">Name</label> <input type="text"
+											th:field="*{name}" placeholder="Name" class="form-control"
+											id="name-input"
 											th:classappend="${#fields.hasErrors('name')} ? is-invalid"
 											required /> <label th:if="${#fields.hasErrors('name')}"
 											th:errors="*{name}" class="invalid-feedback"></label>
 									</div>
 									<div class="form-group col-md-4">
+
+										<label for="email-input">Email</label>
 										<div class="input-group">
+
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroupPrepend">@</span>
 											</div>
 											<input type="text" th:field="*{email}" placeholder="Email"
-												class="form-control" id="validationCustomUsername"
+												id="email-input" class="form-control"
 												aria-describedby="inputGroupPrepend"
 												th:classappend="${#fields.hasErrors('email')} ? is-invalid"
 												required /> <label th:if="${#fields.hasErrors('email')}"
@@ -38,7 +42,8 @@
 										</div>
 									</div>
 									<div class="form-group col-md-4">
-										<input type="password" th:field="*{password}"
+										<label for="password-input">Password</label> <input
+											type="password" th:field="*{password}" id="password-input"
 											placeholder="Password" class="form-control"
 											th:classappend="${#fields.hasErrors('password')} ? is-invalid"
 											required /> <label th:if="${#fields.hasErrors('password')}"
@@ -47,14 +52,16 @@
 								</div>
 								<div class="form-row">
 									<div class="form-group col-md-5">
-										<input type="text" th:field="*{address}" placeholder="Address"
-											class="form-control"
+										<label for="address-input">Address</label> <input type="text"
+											th:field="*{address}" placeholder="Address"
+											id="address-input" class="form-control"
 											th:classappend="${#fields.hasErrors('address')} ? is-invalid"
 											required /> <label th:if="${#fields.hasErrors('address')}"
 											th:errors="*{address}" class="invalid-feedback"></label>
 									</div>
 									<div class="form-group col-md-4">
-										<input type="text" th:field="*{complement}"
+										<label for="complement-input">Complement</label> <input
+											type="text" th:field="*{complement}" id="complement-input"
 											placeholder="Complement" class="form-control"
 											th:classappend="${#fields.hasErrors('complement')} ? is-invalid"
 											required /> <label
@@ -62,7 +69,8 @@
 											th:errors="*{complement}" class="invalid-feedback"></label>
 									</div>
 									<div class="form-group col-md-3">
-										<select class="form-control" th:field="*{cityId}"
+										<label for="city-input">City</label> <select
+											class="form-control" th:field="*{cityId}" id="city-input"
 											placeholder="City">
 											<option th:each="city : ${cities}" th:value="${city.id}"
 												th:text="${city.name}"></option>
@@ -72,27 +80,51 @@
 								</div>
 								<div class="form-row">
 									<div class="form-group col-md-4">
-										<input class="form-control" type="text"
-											placeholder="Enrollcode" th:field="*{enrollmentCode}"
+										<label for="enrollmentCode-input">Enrollmentcode</label> <input
+											class="form-control" type="text" placeholder="Enrollcode"
+											th:field="*{enrollmentCode}" id="enrollmentCode-input"
 											th:classappend="${#fields.hasErrors('enrollmentCode')} ? is-invalid"
 											required><label
 											th:if="${#fields.hasErrors('enrollmentCode')}"
 											th:errors="*{enrollmentCode}" class="invalid-feedback"></label>
 									</div>
 									<div class="form-group col-md-3">
-										<input class="form-control" type="date"
-											placeholder="Birth Date" th:field="*{birthDate}"
-											th:classappend="${#fields.hasErrors('birthDate')} ? is-invalid"
+										<label for="bornDate-input">Born Date</label> <input
+											class="form-control" type="date" placeholder="born Date"
+											th:field="*{bornDate}" id="bornDate-input"
+											th:classappend="${#fields.hasErrors('bornDate')} ? is-invalid"
 											required> <label
-											th:if="${#fields.hasErrors('birthDate')}"
-											th:errors="*{birthDate}" class="invalid-feedback"></label>
+											th:if="${#fields.hasErrors('bornDate')}"
+											th:errors="*{bornDate}" class="invalid-feedback"></label>
+									</div>
+									<div class="form-group" col-md-4>
+										<label for="foreignLanguages-input">Foreign Languages</label>
+										<div class="form-group" col-md>
+											<div class="form-check form-check-inline"id="foreignLanguages-input">
+												<input class="form-check-input" type="checkbox" value=""
+													id="defaultCheck1"> <label class="form-check-label"
+													for="defaultCheck1"> Default checkbox </label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="checkbox"
+													id="inlineCheckbox2" value="option2"> <label
+													class="form-check-label" for="inlineCheckbox2">2</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="checkbox"
+													id="inlineCheckbox3" value="option3" disabled> <label
+													class="form-check-label" for="inlineCheckbox3">3
+													(disabled)</label>
+											</div>
+										</div>
 									</div>
 
 								</div>
 								<div class="form-row">
 									<div class="form-group col-md">
+										<label for="resume-input">Resume</label>
 										<textarea class="form-control" type="textarea"
-											placeholder="Resume" th:field="*{resume}"
+											placeholder="Resume" th:field="*{resume}" id="resume-input"
 											th:classappend="${#fields.hasErrors('resume')} ? is-invalid"
 											required></textarea>
 										<label th:if="${#fields.hasErrors('resume')}"
@@ -111,7 +143,7 @@
 		</div>
 	</div>
 
-
+	<footer th:include="fragments/general :: footer"> </footer>
 </body>
 
 </html>

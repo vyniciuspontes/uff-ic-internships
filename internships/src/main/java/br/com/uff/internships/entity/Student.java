@@ -121,7 +121,7 @@ public class Student extends User implements Serializable {
 	@Override
 	public String toString() {
 		return "Student [enrollmentCode=" + enrollmentCode + ", getId()=" + getId() + ", getAddress()=" + getAddress()
-				+ ", getBirthDate()=" + getBirthDate() + ", getComplement()=" + getComplement() + ", getEmail()="
+				+ ", getBirthDate()=" + getBornDate() + ", getComplement()=" + getComplement() + ", getEmail()="
 				+ getEmail() + ", getFirstName()=" + getName() + ", getPassword()=" + getPassword() + ", getCity()="
 				+ getCity() + "]";
 	}

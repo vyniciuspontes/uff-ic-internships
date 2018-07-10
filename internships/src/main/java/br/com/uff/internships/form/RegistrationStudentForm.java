@@ -20,7 +20,7 @@ public class RegistrationStudentForm extends RegistrationUserForm{
 	@Override
 	public String toString() {
 		return "RegistrationStudentForm [enrollmentCode=" + enrollmentCode + ", getName()=" + getName()
-				+ ", getBirthDate()=" + getBirthDate() + ", getEmail()=" + getEmail() + ", getAddress()=" + getAddress()
+				+ ", getBirthDate()=" + getBornDate() + ", getEmail()=" + getEmail() + ", getAddress()=" + getAddress()
 				+ ", getComplement()=" + getComplement() + ", getPassword()=" + getPassword() + ", getCityId()="
 				+ getCityId() + ", getResume()=" + getResume() + "]";
 	}

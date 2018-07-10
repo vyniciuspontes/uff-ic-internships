@@ -1,3 +1,11 @@
-.login-panel {
-    margin-top: 25%;
+.login-card {
+    margin-top: 15%;
+}
+
+.registration-form {
+	margin-top: 25%;
+}
+
+.registration-select {
+	margin-top: 25%;
 }

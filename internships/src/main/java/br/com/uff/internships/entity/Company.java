@@ -19,16 +19,6 @@ public class Company extends User implements Serializable {
 	@Column(nullable=false, length=14)
 	private String cnpj;
 
-	@Column(name="Description", length=3000)
-	private String description;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="foundation_date", nullable=false)
-	private Date foundationDate;
-
-	@Column(nullable=false, length=50)
-	private String name;
-
 	//bi-directional many-to-one association to CoreActivity
 	@ManyToOne
 	@JoinColumn(name="core_activity_id", nullable=false)
@@ -47,30 +37,6 @@ public class Company extends User implements Serializable {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Date getFoundationDate() {
-		return this.foundationDate;
-	}
-
-	public void setFoundationDate(Date foundationDate) {
-		this.foundationDate = foundationDate;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public CoreActivity getCoreActivity() {

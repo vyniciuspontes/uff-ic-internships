@@ -10,10 +10,8 @@ import java.util.Date;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@NamedQueries({
-@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u where u.email=?")
-})
+@NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u where u.email=?") })
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,11 +33,8 @@ public class User implements Serializable {
 	@Column(nullable = false, length = 50)
 	private String email;
 
-	@Column(name = "first_name", nullable = false, length = 50)
-	private String firstName;
-
-	@Column(name = "last_name", nullable = false, length = 80)
-	private String lastName;
+	@Column(name = "name", nullable = false, length = 50)
+	private String name;
 
 	@Column(nullable = false, length = 100)
 	private String password;
@@ -48,6 +43,9 @@ public class User implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "city_id", nullable = false)
 	private City city;
+
+	@Column(nullable = true, length = 3000)
+	private String resume;
 
 	public User() {
 	}
@@ -92,20 +90,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getFirstName() {
-		return this.firstName;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return this.lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPassword() {
@@ -124,11 +114,19 @@ public class User implements Serializable {
 		this.city = city;
 	}
 
+	public String getResume() {
+		return resume;
+	}
+
+	public void setResume(String resume) {
+		this.resume = resume;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", address=" + address + ", birthDate=" + birthDate + ", complement=" + complement
-				+ ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ ", city=" + city + "]";
+				+ ", email=" + email + ", name=" + name + ", password=" + password + ", city=" + city + ", resume="
+				+ resume + "]";
 	}
 
 }

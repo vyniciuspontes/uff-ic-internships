@@ -1,0 +1,53 @@
+<html>
+
+<head th:include="fragments/header :: head(title='registration')"></head>
+
+
+<body>
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<form autocomplete="off" action="#" th:action="@{/registration}"
+					th:object="${company}" method="post"
+					class="registration-form form-horizontal" role="form">
+					<h2>Company Registration</h2>
+					<div class="form-group">
+						<label th:if="${#fields.hasErrors('name')}" th:errors="name"
+							class="validation-message"></label> <input type="text"
+							th:field="*{name}" placeholder="Name" class="form-control" />
+
+					</div>
+					<div class="form-group">
+
+						<input type="text" th:field="*{email}" placeholder="Email"
+							class="form-control" /> <label
+							th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+							class="validation-message"></label>
+
+					</div>
+					<div class="form-group">
+
+						<input type="password" th:field="*{password}"
+							placeholder="Password" class="form-control" /> <label
+							th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+							class="validation-message"></label>
+
+					</div>
+					<div class="form-group">
+
+						<button type="submit" class="btn btn-primary btn-block">Register
+							Company</button>
+
+					</div>
+
+					<span th:utext="${successMessage}"></span>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

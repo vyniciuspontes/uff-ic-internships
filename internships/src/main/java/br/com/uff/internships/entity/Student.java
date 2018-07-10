@@ -4,37 +4,33 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the student database table.
  * 
  */
 @Entity
-@Table(name="student")
-@NamedQuery(name="Student.findAll", query="SELECT s FROM Student s")
+@Table(name = "student")
+@NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s")
 public class Student extends User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="enrollment_code", nullable=false, length=20)
+	@Column(name = "enrollment_code", nullable = false, length = 20)
 	private String enrollmentCode;
 
-	@Column(length=3000)
-	private String resume;
-
-	//bi-directional many-to-one association to Experience
-	@OneToMany(mappedBy="student")
+	// bi-directional many-to-one association to Experience
+	@OneToMany(mappedBy = "student")
 	private List<Experience> experiences;
 
-	//bi-directional many-to-many association to Internship
-	@ManyToMany(mappedBy="students")
+	// bi-directional many-to-many association to Internship
+	@ManyToMany(mappedBy = "students")
 	private List<Internship> internships;
 
-	//bi-directional many-to-one association to StudentForeignLaguage
-	@OneToMany(mappedBy="student")
+	// bi-directional many-to-one association to StudentForeignLaguage
+	@OneToMany(mappedBy = "student")
 	private List<StudentForeignLaguage> studentForeignLaguages;
 
-	//bi-directional many-to-one association to StudentSkill
-	@OneToMany(mappedBy="student")
+	// bi-directional many-to-one association to StudentSkill
+	@OneToMany(mappedBy = "student")
 	private List<StudentSkill> studentSkills;
 
 	public Student() {
@@ -46,14 +42,6 @@ public class Student extends User implements Serializable {
 
 	public void setEnrollmentCode(String enrollmentCode) {
 		this.enrollmentCode = enrollmentCode;
-	}
-
-	public String getResume() {
-		return this.resume;
-	}
-
-	public void setResume(String resume) {
-		this.resume = resume;
 	}
 
 	public List<Experience> getExperiences() {
@@ -132,13 +120,10 @@ public class Student extends User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Student [enrollmentCode=" + enrollmentCode + ", resume=" + resume + ", getId()=" + getId()
-				+ ", getAddress()=" + getAddress() + ", getBirthDate()=" + getBirthDate() + ", getComplement()="
-				+ getComplement() + ", getEmail()=" + getEmail() + ", getFirstName()=" + getFirstName()
-				+ ", getLastName()=" + getLastName() + ", getPassword()=" + getPassword() + ", getCity()=" + getCity()
-				+ "]";
+		return "Student [enrollmentCode=" + enrollmentCode + ", getId()=" + getId() + ", getAddress()=" + getAddress()
+				+ ", getBirthDate()=" + getBirthDate() + ", getComplement()=" + getComplement() + ", getEmail()="
+				+ getEmail() + ", getFirstName()=" + getName() + ", getPassword()=" + getPassword() + ", getCity()="
+				+ getCity() + "]";
 	}
-	
-	
 
 }

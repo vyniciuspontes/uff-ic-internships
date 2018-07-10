@@ -1,0 +1,117 @@
+<html>
+
+<head th:include="fragments/header :: head(title='registration')"></head>
+
+
+<body>
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-md-10">
+				<div class="login-card card">
+					<div class="card-body">
+						<h3 class="card-title">Student Registration</h3>
+						<div class="card-text">
+							<form autocomplete="off" action="#"
+								th:action="@{/registration-student}" th:object="${student}"
+								method="post" class="form" role="form">
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<input type="text" th:field="*{name}" placeholder="Name"
+											class="form-control"
+											th:classappend="${#fields.hasErrors('name')} ? is-invalid"
+											required /> <label th:if="${#fields.hasErrors('name')}"
+											th:errors="*{name}" class="invalid-feedback"></label>
+									</div>
+									<div class="form-group col-md-4">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroupPrepend">@</span>
+											</div>
+											<input type="text" th:field="*{email}" placeholder="Email"
+												class="form-control" id="validationCustomUsername"
+												aria-describedby="inputGroupPrepend"
+												th:classappend="${#fields.hasErrors('email')} ? is-invalid"
+												required /> <label th:if="${#fields.hasErrors('email')}"
+												th:errors="*{email}" class="invalid-feedback"></label>
+										</div>
+									</div>
+									<div class="form-group col-md-4">
+										<input type="password" th:field="*{password}"
+											placeholder="Password" class="form-control"
+											th:classappend="${#fields.hasErrors('password')} ? is-invalid"
+											required /> <label th:if="${#fields.hasErrors('password')}"
+											th:errors="*{password}" class="invalid-feedback"></label>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-5">
+										<input type="text" th:field="*{address}" placeholder="Address"
+											class="form-control"
+											th:classappend="${#fields.hasErrors('address')} ? is-invalid"
+											required /> <label th:if="${#fields.hasErrors('address')}"
+											th:errors="*{address}" class="invalid-feedback"></label>
+									</div>
+									<div class="form-group col-md-4">
+										<input type="text" th:field="*{complement}"
+											placeholder="Complement" class="form-control"
+											th:classappend="${#fields.hasErrors('complement')} ? is-invalid"
+											required /> <label
+											th:if="${#fields.hasErrors('complement')}"
+											th:errors="*{complement}" class="invalid-feedback"></label>
+									</div>
+									<div class="form-group col-md-3">
+										<select class="form-control" th:field="*{cityId}"
+											placeholder="City">
+											<option th:each="city : ${cities}" th:value="${city.id}"
+												th:text="${city.name}"></option>
+										</select>
+									</div>
+
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<input class="form-control" type="text"
+											placeholder="Enrollcode" th:field="*{enrollmentCode}"
+											th:classappend="${#fields.hasErrors('enrollmentCode')} ? is-invalid"
+											required><label
+											th:if="${#fields.hasErrors('enrollmentCode')}"
+											th:errors="*{enrollmentCode}" class="invalid-feedback"></label>
+									</div>
+									<div class="form-group col-md-3">
+										<input class="form-control" type="date"
+											placeholder="Birth Date" th:field="*{birthDate}"
+											th:classappend="${#fields.hasErrors('birthDate')} ? is-invalid"
+											required> <label
+											th:if="${#fields.hasErrors('birthDate')}"
+											th:errors="*{birthDate}" class="invalid-feedback"></label>
+									</div>
+
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md">
+										<textarea class="form-control" type="textarea"
+											placeholder="Resume" th:field="*{resume}"
+											th:classappend="${#fields.hasErrors('resume')} ? is-invalid"
+											required></textarea>
+										<label th:if="${#fields.hasErrors('resume')}"
+											th:errors="*{resume}" class="invalid-feedback"></label>
+									</div>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary btn-block">Register
+										Student</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

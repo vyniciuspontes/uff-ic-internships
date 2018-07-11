@@ -1,5 +1,5 @@
 <html>
-<head th:include="fragments/header :: head(title='login')">
+<head th:include="fragments/general :: head(title='login')">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -40,12 +40,15 @@
 		</div>
 		<div class="row" th:if="${param.error}">
 			<div
-				th:replace="fragments/header :: alert (type='danger', message='Email or passowrd are incorrect')">...</div>
+				th:replace="fragments/general :: alert (type='danger', message='Email or passowrd are incorrect')">...</div>
 		</div>
 		<div class="row" th:if="${param.logout}">
 			<div
-				th:replace="fragments/header :: alert (type='warning', message='You have logged out' )">...</div>
+				th:replace="fragments/general :: alert (type='warning', message='You have logged out' )">...</div>
 		</div>
 	</div>
+	
+	
+	<footer th:include="fragments/general :: footer"> </footer>
 </body>
 </html>

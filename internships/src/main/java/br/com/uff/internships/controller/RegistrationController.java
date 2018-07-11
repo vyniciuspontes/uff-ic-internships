@@ -77,7 +77,7 @@ public class RegistrationController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = { "/registration-student" }, method = RequestMethod.POST, params={"addRow"})
+	@RequestMapping(value = { "/registration-student" }, method = RequestMethod.POST)
 	public ModelAndView registrateStudent(@Valid @ModelAttribute("student") RegistrationStudentForm studentForm,
 			BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -91,12 +91,12 @@ public class RegistrationController {
 				log.info(e.toString());
 
 			}
+			
 			log.info("" + studentForm.toString());
 			return modelAndView;
 		}
 
-		modelAndView.addObject("student", studentForm);
-		modelAndView.setViewName("registration-student");
+		modelAndView.setViewName("/login");
 		return modelAndView;
 	}
 

@@ -1,20 +1,17 @@
 package br.com.uff.internships.form;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.validation.constraints.NotNull;
-
-import br.com.uff.internships.entity.ForeignLanguage;
-import br.com.uff.internships.entity.Skill;
 
 public class RegistrationStudentForm extends RegistrationUserForm {
 
 	@NotNull
 	private String enrollmentCode;
 
-	private List<ForeignLanguage> foreignLanguages;
+	private Map<Integer, Integer> foreignLanguageLevel;
 
-	private List<Skill> skills;
+	private Map<Integer, Integer> SkillLevel;
 
 	public RegistrationStudentForm() {
 	}
@@ -27,20 +24,20 @@ public class RegistrationStudentForm extends RegistrationUserForm {
 		this.enrollmentCode = enrollmentCode;
 	}
 
-	public List<ForeignLanguage> getForeignLanguages() {
-		return foreignLanguages;
+	public Map<Integer, Integer> getForeignLanguageLevel() {
+		return foreignLanguageLevel;
 	}
 
-	public void setForeignLanguages(List<ForeignLanguage> foreignLanguages) {
-		this.foreignLanguages = foreignLanguages;
+	public void setForeignLanguageLevel(Map<Integer, Integer> foreignLanguageLevel) {
+		this.foreignLanguageLevel = foreignLanguageLevel;
 	}
 
-	public List<Skill> getSkills() {
-		return skills;
+	public Map<Integer, Integer> getSkillLevel() {
+		return SkillLevel;
 	}
 
-	public void setSkills(List<Skill> skills) {
-		this.skills = skills;
+	public void setSkillLevel(Map<Integer, Integer> skillLevel) {
+		SkillLevel = skillLevel;
 	}
 
 	@Override

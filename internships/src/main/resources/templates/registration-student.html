@@ -119,23 +119,22 @@
 												<div class="card">
 													<div class="card-body">
 														<h4 class="card-title">Foreign Languages</h4>
-														<p>Put your language level from 1 to 5</p>
+														<p>Put your language level from 0 to 5</p>
 														<th:block th:each="foreignLanguage : ${foreignLanguages}">
 															<div class="form-row">
 																<div class="form-group col-md">
 																	<div class="row">
 																		<div class="col-md-8">
-
-																			<select class="form-control">
-																				<option
-																					th:each="foreignLanguage : ${foreignLanguages}"
-																					th:value="${foreignLanguage.id}"
-																					th:text="${foreignLanguage.name}"></option>
-																			</select>
+																			<label for="foreign-language-${foreignLanguage.name}-level" 
+																				th:text="${foreignLanguage.name}"></label>
+																			
 																		</div>
 																		<div class="col-md-3">
 																			<input type="number" class="form-control" min="0"
-																				max="5" placeholder="0"></input>
+																				max="5" placeholder="0" th:id="'foreign-language-' + ${foreignLanguage.name} + '-level'"
+																				th:field="*{foreignLanguageLevel[__${foreignLanguage.id}__]}"
+																				>
+																				</input>
 																		</div>
 																	</div>
 																</div>
@@ -154,10 +153,9 @@
 																<div class="form-group col-md">
 																	<div class="row">
 																		<div class="col-md-8">
-																			<select class="form-control">
-																				<option th:each="skill : ${skills}"
-																					th:value="${skill.id}" th:text="${skill.name}"></option>
-																			</select>
+																		
+																			<p th:text="${skill.name}"></p>
+																		
 																		</div>
 																		<div class="col-md-3">
 																			<input type="number" class="form-control" min="0"

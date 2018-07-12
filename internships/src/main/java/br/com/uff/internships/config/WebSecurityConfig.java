@@ -32,20 +32,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private CustomAccessDeniedHandler customAccessDeniedHandler;
+	
+	@Autowired
+	private CustomAuthenticationSucessHandler customAuthenticationSucessHandler;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(USER_PASSOWRD_QUERY)
 				.authoritiesByUsernameQuery(USER_ROLE_QUERY).passwordEncoder(bCryptPasswordEncoder);
-
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/home", "/registration-**").permitAll()
-				.anyRequest().authenticated().and().formLogin().loginPage("/login").failureUrl("/login?error=true")
-				.defaultSuccessUrl("/hello").usernameParameter("email").passwordParameter("password").permitAll().and()
+		http.authorizeRequests().antMatchers("/registration-**").permitAll()
+				.antMatchers("/coordinator-dashboard-**").hasRole(COORDINATOR_ROLE)
+				.antMatchers("/company-dashboard-**").hasRole(COMPANY_ROLE)
+				.antMatchers("/student-dashboard-**").hasRole(STUDENT_ROLE)
+				.anyRequest().authenticated().and().formLogin()
+				.loginPage("/login").failureUrl("/login?error=true")
+				.successHandler(customAuthenticationSucessHandler)
+				//.defaultSuccessUrl("/sucess")
+				//.loginProcessingUrl("/login")
+				.usernameParameter("email").passwordParameter("password").permitAll().and()
 				.logout().permitAll().and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
 
 	}

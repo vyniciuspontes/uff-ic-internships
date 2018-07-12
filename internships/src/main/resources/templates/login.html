@@ -1,7 +1,5 @@
 <html>
-<head th:include="fragments/general :: head(title='login')">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<head th:include="fragments/general :: head(title='Login')">
 
 </head>
 
@@ -13,7 +11,7 @@
 				<div class="login-card card">
 					<div class="card-body">
 						<h3 class="card-title">Login</h3>
-						<form role="form" th:action=@{/login} method="post">
+						<form role="form" action="#" th:action=@{/login} method="post">
 							<div class="form-group">
 								<input class="form-control" placeholder="E-mail" name="email"
 									type="email" autofocus>

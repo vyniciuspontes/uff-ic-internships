@@ -1,8 +1,12 @@
 package br.com.uff.internships.form;
 
+import java.util.Date;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class RegistrationUserForm {
 
@@ -10,9 +14,9 @@ public class RegistrationUserForm {
 	@NotNull
 	private String name;
 
-	@NotEmpty
 	@NotNull
-	private String bornDate;
+	@DateTimeFormat (pattern="yyyy-MM-dd") 
+	private Date bornDate;
 	
 	@NotEmpty
 	@NotNull
@@ -44,11 +48,11 @@ public class RegistrationUserForm {
 		this.name = name;
 	}
 
-	public String getBornDate() {
+	public Date getBornDate() {
 		return bornDate;
 	}
 
-	public void setBornDate(String bornDate) {
+	public void setBornDate(Date bornDate) {
 		this.bornDate = bornDate;
 	}
 

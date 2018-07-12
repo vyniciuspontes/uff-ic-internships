@@ -4,48 +4,55 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 
+
 /**
  * The persistent class for the user database table.
  * 
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u where u.email=?") })
+@Table(name="user")
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	@Column(nullable = false, length = 100)
 	private String address;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "born_date", nullable = false)
+	@Column(name="born_date")
 	private Date bornDate;
 
-	@Column(length = 100)
 	private String complement;
 
-	@Column(nullable = false, length = 50)
 	private String email;
 
-	@Column(name = "name", nullable = false, length = 50)
 	private String name;
 
-	@Column(nullable = false, length = 100)
 	private String password;
 
-	// bi-directional many-to-one association to City
-	@ManyToOne
-	@JoinColumn(name = "city_id", nullable = false)
-	private City city;
-
-	@Column(nullable = true, length = 3000)
+	@Lob
 	private String resume;
+
+	private byte validated;
+
+	//bi-directional one-to-one association to Company
+	@OneToOne(mappedBy="user")
+	private Company company;
+
+	//bi-directional one-to-one association to Coordinator
+	@OneToOne(mappedBy="user")
+	private Coordinator coordinator;
+
+	//bi-directional one-to-one association to Student
+	@OneToOne(mappedBy="user")
+	private Student student;
+
+	//bi-directional many-to-one association to City
+	@ManyToOne
+	private City city;
 
 	public User() {
 	}
@@ -106,27 +113,52 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public City getCity() {
-		return this.city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-
 	public String getResume() {
-		return resume;
+		return this.resume;
 	}
 
 	public void setResume(String resume) {
 		this.resume = resume;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", address=" + address + ", bornDate=" + bornDate + ", complement=" + complement
-				+ ", email=" + email + ", name=" + name + ", password=" + password + ", city=" + city + ", resume="
-				+ resume + "]";
+	public byte getValidated() {
+		return this.validated;
+	}
+
+	public void setValidated(byte validated) {
+		this.validated = validated;
+	}
+
+	public Company getCompany() {
+		return this.company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public Coordinator getCoordinator() {
+		return this.coordinator;
+	}
+
+	public void setCoordinator(Coordinator coordinator) {
+		this.coordinator = coordinator;
+	}
+
+	public Student getStudent() {
+		return this.student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public City getCity() {
+		return this.city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 }

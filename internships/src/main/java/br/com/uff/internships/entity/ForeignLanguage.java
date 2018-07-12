@@ -17,15 +17,13 @@ public class ForeignLanguage implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
 
-	@Column(nullable=false, length=50)
 	private String name;
 
-	//bi-directional many-to-one association to StudentForeignLaguage
-	@OneToMany(mappedBy="foreignLanguage")
-	private List<StudentForeignLaguage> studentForeignLaguages;
+	//bi-directional many-to-many association to Student
+	@ManyToMany(mappedBy="foreignLanguages")
+	private List<Student> students;
 
 	public ForeignLanguage() {
 	}
@@ -46,26 +44,12 @@ public class ForeignLanguage implements Serializable {
 		this.name = name;
 	}
 
-	public List<StudentForeignLaguage> getStudentForeignLaguages() {
-		return this.studentForeignLaguages;
+	public List<Student> getStudents() {
+		return this.students;
 	}
 
-	public void setStudentForeignLaguages(List<StudentForeignLaguage> studentForeignLaguages) {
-		this.studentForeignLaguages = studentForeignLaguages;
-	}
-
-	public StudentForeignLaguage addStudentForeignLaguage(StudentForeignLaguage studentForeignLaguage) {
-		getStudentForeignLaguages().add(studentForeignLaguage);
-		studentForeignLaguage.setForeignLanguage(this);
-
-		return studentForeignLaguage;
-	}
-
-	public StudentForeignLaguage removeStudentForeignLaguage(StudentForeignLaguage studentForeignLaguage) {
-		getStudentForeignLaguages().remove(studentForeignLaguage);
-		studentForeignLaguage.setForeignLanguage(null);
-
-		return studentForeignLaguage;
+	public void setStudents(List<Student> students) {
+		this.students = students;
 	}
 
 }

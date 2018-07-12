@@ -8,7 +8,7 @@ import javax.persistence.*;
  * 
  */
 @Embeddable
-public class StudentForeignLaguagePK implements Serializable {
+public class StudentForeignLanguagePK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +18,7 @@ public class StudentForeignLaguagePK implements Serializable {
 	@Column(name="foreign_language_id", insertable=false, updatable=false, unique=true, nullable=false)
 	private int foreignLanguageId;
 
-	public StudentForeignLaguagePK() {
+	public StudentForeignLanguagePK() {
 	}
 	public int getStudentId() {
 		return this.studentId;
@@ -37,10 +37,10 @@ public class StudentForeignLaguagePK implements Serializable {
 		if (this == other) {
 			return true;
 		}
-		if (!(other instanceof StudentForeignLaguagePK)) {
+		if (!(other instanceof StudentForeignLanguagePK)) {
 			return false;
 		}
-		StudentForeignLaguagePK castOther = (StudentForeignLaguagePK)other;
+		StudentForeignLanguagePK castOther = (StudentForeignLanguagePK)other;
 		return 
 			(this.studentId == castOther.studentId)
 			&& (this.foreignLanguageId == castOther.foreignLanguageId);

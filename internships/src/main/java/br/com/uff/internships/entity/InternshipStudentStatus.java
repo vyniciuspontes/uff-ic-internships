@@ -16,20 +16,17 @@ public class InternshipStudentStatus implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
 
-	@Column(length=1000)
 	private String commentary;
 
-	@Column(nullable=false, length=100)
 	private String status;
 
 	//bi-directional many-to-one association to InternshipStudent
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="internship_id", referencedColumnName="internship_id", nullable=false),
-		@JoinColumn(name="student_id", referencedColumnName="student_Id", nullable=false)
+		@JoinColumn(name="internship_id", referencedColumnName="internship_id"),
+		@JoinColumn(name="student_id", referencedColumnName="student_Id")
 		})
 	private InternshipStudent internshipStudent;
 

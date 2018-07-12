@@ -12,10 +12,10 @@ public class InternshipStudentPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="internship_id", insertable=false, updatable=false, unique=true, nullable=false)
+	@Column(name="internship_id", insertable=false, updatable=false, unique=true, nullable=false) 
 	private int internshipId;
 
-	@Column(insertable=false, updatable=false, unique=true, nullable=false)
+	 @Column(insertable=false, updatable=false, unique=true, nullable=false) 
 	private int student_Id;
 
 	public InternshipStudentPK() {

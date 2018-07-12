@@ -17,11 +17,9 @@ public class Experience implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
 
 	@Lob
-	@Column(nullable=false)
 	private String description;
 
 	@Temporal(TemporalType.DATE)
@@ -29,15 +27,14 @@ public class Experience implements Serializable {
 	private Date endDate;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="start_date", nullable=false)
+	@Column(name="start_date")
 	private Date startDate;
 
-	@Column(nullable=false, length=100)
 	private String title;
 
 	//bi-directional many-to-one association to Student
 	@ManyToOne
-	@JoinColumn(name="student_Id", nullable=false)
+	@JoinColumn(name="student_Id")
 	private Student student;
 
 	public Experience() {

@@ -19,25 +19,19 @@ public class Internship implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
 
-	@Column(precision=10, scale=2)
 	private BigDecimal allowance;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false)
 	private Date deadline;
 
-	@Column(length=3000)
 	private String description;
 
-	@Column(nullable=false, length=50)
 	private String title;
 
 	//bi-directional many-to-one association to Company
 	@ManyToOne
-	@JoinColumn(name="company_id", nullable=false)
 	private Company company;
 
 	//bi-directional many-to-many association to Skill
@@ -45,10 +39,10 @@ public class Internship implements Serializable {
 	@JoinTable(
 		name="internship_skill"
 		, joinColumns={
-			@JoinColumn(name="internship_id", nullable=false)
+			@JoinColumn(name="internship_id")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="skill_id", nullable=false)
+			@JoinColumn(name="skill_id")
 			}
 		)
 	private List<Skill> skills;
@@ -58,10 +52,10 @@ public class Internship implements Serializable {
 	@JoinTable(
 		name="internship_student"
 		, joinColumns={
-			@JoinColumn(name="internship_id", nullable=false)
+			@JoinColumn(name="internship_id")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="student_Id", nullable=false)
+			@JoinColumn(name="student_Id")
 			}
 		)
 	private List<Student> students;

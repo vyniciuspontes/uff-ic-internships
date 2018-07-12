@@ -17,10 +17,8 @@ public class City implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
 
-	@Column(nullable=false, length=100)
 	private String name;
 
 	//bi-directional many-to-one association to User

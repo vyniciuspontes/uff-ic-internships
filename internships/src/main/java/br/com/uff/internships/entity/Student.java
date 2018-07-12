@@ -4,36 +4,72 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
+
 /**
  * The persistent class for the student database table.
  * 
  */
 @Entity
-@Table(name = "student")
-@NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s")
-public class Student extends User implements Serializable {
+@Table(name="student")
+@NamedQuery(name="Student.findAll", query="SELECT s FROM Student s")
+public class Student implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "enrollment_code", nullable = false, length = 20)
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
+
+	@Column(name="enrollment_code")
 	private String enrollmentCode;
 
-	// bi-directional many-to-one association to Experience
-	@OneToMany(mappedBy = "student")
+	//bi-directional many-to-one association to Experience
+	@OneToMany(mappedBy="student")
 	private List<Experience> experiences;
 
-	// bi-directional many-to-many association to Internship
-	@ManyToMany(mappedBy = "students")
+	//bi-directional many-to-many association to Internship
+	@ManyToMany(mappedBy="students")
 	private List<Internship> internships;
 
-	// bi-directional many-to-one association to StudentForeignLaguage
-	@OneToMany(mappedBy = "student")
-	private List<StudentForeignLaguage> studentForeignLaguages;
+	//bi-directional one-to-one association to User
+	@OneToOne
+	@JoinColumn(name="id")
+	private User user;
 
-	// bi-directional many-to-one association to StudentSkill
-	@OneToMany(mappedBy = "student")
-	private List<StudentSkill> studentSkills;
+	//bi-directional many-to-many association to ForeignLanguage
+	@ManyToMany
+	@JoinTable(
+		name="student_foreign_language"
+		, joinColumns={
+			@JoinColumn(name="foreign_language_id")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="student_id")
+			}
+		)
+	private List<ForeignLanguage> foreignLanguages;
+
+	//bi-directional many-to-many association to Skill
+	@ManyToMany
+	@JoinTable(
+		name="student_skill"
+		, joinColumns={
+			@JoinColumn(name="student_id")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="skill_id")
+			}
+		)
+	private List<Skill> skills;
 
 	public Student() {
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getEnrollmentCode() {
@@ -74,56 +110,28 @@ public class Student extends User implements Serializable {
 		this.internships = internships;
 	}
 
-	public List<StudentForeignLaguage> getStudentForeignLaguages() {
-		return this.studentForeignLaguages;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setStudentForeignLaguages(List<StudentForeignLaguage> studentForeignLaguages) {
-		this.studentForeignLaguages = studentForeignLaguages;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public StudentForeignLaguage addStudentForeignLaguage(StudentForeignLaguage studentForeignLaguage) {
-		getStudentForeignLaguages().add(studentForeignLaguage);
-		studentForeignLaguage.setStudent(this);
-
-		return studentForeignLaguage;
+	public List<ForeignLanguage> getForeignLanguages() {
+		return this.foreignLanguages;
 	}
 
-	public StudentForeignLaguage removeStudentForeignLaguage(StudentForeignLaguage studentForeignLaguage) {
-		getStudentForeignLaguages().remove(studentForeignLaguage);
-		studentForeignLaguage.setStudent(null);
-
-		return studentForeignLaguage;
+	public void setForeignLanguages(List<ForeignLanguage> foreignLanguages) {
+		this.foreignLanguages = foreignLanguages;
 	}
 
-	public List<StudentSkill> getStudentSkills() {
-		return this.studentSkills;
+	public List<Skill> getSkills() {
+		return this.skills;
 	}
 
-	public void setStudentSkills(List<StudentSkill> studentSkills) {
-		this.studentSkills = studentSkills;
-	}
-
-	public StudentSkill addStudentSkill(StudentSkill studentSkill) {
-		getStudentSkills().add(studentSkill);
-		studentSkill.setStudent(this);
-
-		return studentSkill;
-	}
-
-	public StudentSkill removeStudentSkill(StudentSkill studentSkill) {
-		getStudentSkills().remove(studentSkill);
-		studentSkill.setStudent(null);
-
-		return studentSkill;
-	}
-
-	@Override
-	public String toString() {
-		return "Student [enrollmentCode=" + enrollmentCode + ", getId()=" + getId() + ", getAddress()=" + getAddress()
-				+ ", getBirthDate()=" + getBornDate() + ", getComplement()=" + getComplement() + ", getEmail()="
-				+ getEmail() + ", getFirstName()=" + getName() + ", getPassword()=" + getPassword() + ", getCity()="
-				+ getCity() + "]";
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
 	}
 
 }

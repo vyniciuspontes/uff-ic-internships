@@ -93,6 +93,7 @@
 										<label for="bornDate-input">Born Date</label> <input
 											class="form-control" type="date" placeholder="born Date"
 											th:field="*{bornDate}" id="bornDate-input"
+											
 											th:classappend="${#fields.hasErrors('bornDate')} ? is-invalid"
 											required> <label
 											th:if="${#fields.hasErrors('bornDate')}"
@@ -190,16 +191,19 @@
 																	<div class="col-md-6">
 																		<label for="experience-title-input">Title</label> <input
 																			type="text" class="form-control"
+																			th:field="*{experienceTitle}"
 																			name="experience-title-input" placeholder="Title">
 																	</div>
 																	<div class="col-md-3">
 																		<label for="experience-start-date-input">Start
 																			Date</label> <input class="form-control" type="date"
+																			th:field="*{experienceStartDate}"
 																			name="experience-start-date-input">
 																	</div>
 																	<div class="col-md-3">
 																		<label for="experience-end-date-input">End
 																			Date</label> <input class="form-control" type="date"
+																			th:field="*{experienceEndDate}"
 																			name="experience-end-date-input">
 																	</div>
 																</div>
@@ -211,6 +215,7 @@
 																<label for="experience-description-input">Description</label>
 																<textarea class="form-control" type="textarea"
 																	placeholder="Experience description"
+																	th:field="*{experienceDescription}"
 																	id="experience-description-input"></textarea>
 															</div>
 														</div>

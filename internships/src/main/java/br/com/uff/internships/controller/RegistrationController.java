@@ -30,25 +30,24 @@ import br.com.uff.internships.repository.SkillRepository;
 public class RegistrationController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private CityRepository cityRepository;
-	
+
 	@Autowired
 	private ForeignLanguageRepository foreignLanguageRepository;
-	
+
 	@Autowired
 	private SkillRepository skillRepository;
-	
+
 	@RequestMapping(value = { "/registration-student" }, method = RequestMethod.GET)
 	public String studentRegistration(Model model, HttpServletRequest request) {
-		
-		for(Map.Entry<String, Object> entry : model.asMap().entrySet()) {
 
-			System.out.println(String.format("%s > %s", entry.getKey(), entry.getValue()));	
+		for (Map.Entry<String, Object> entry : model.asMap().entrySet()) {
+
+			System.out.println(String.format("%s > %s", entry.getKey(), entry.getValue()));
 		}
-		
-		
+
 		RegistrationStudentForm studentForm = new RegistrationStudentForm();
 		List<City> cities = cityRepository.getAll();
 		List<ForeignLanguage> foreignLanguages = foreignLanguageRepository.getAll();
@@ -57,7 +56,7 @@ public class RegistrationController {
 		model.addAttribute("foreignLanguages", foreignLanguages);
 		model.addAttribute("skills", skills);
 		model.addAttribute("student", studentForm);
-		
+
 		return "registration-student";
 	}
 
@@ -81,7 +80,6 @@ public class RegistrationController {
 	public ModelAndView registrateStudent(@Valid @ModelAttribute("student") RegistrationStudentForm studentForm,
 			BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
-			
 
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("/registration-student");
@@ -91,7 +89,7 @@ public class RegistrationController {
 				log.info(e.toString());
 
 			}
-			
+
 			log.info("" + studentForm.toString());
 			return modelAndView;
 		}

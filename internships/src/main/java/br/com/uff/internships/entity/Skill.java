@@ -17,19 +17,17 @@ public class Skill implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
 
-	@Column(nullable=false, length=50)
 	private String name;
 
 	//bi-directional many-to-many association to Internship
 	@ManyToMany(mappedBy="skills")
 	private List<Internship> internships;
 
-	//bi-directional many-to-one association to StudentSkill
-	@OneToMany(mappedBy="skill")
-	private List<StudentSkill> studentSkills;
+	//bi-directional many-to-many association to Student
+	@ManyToMany(mappedBy="skills")
+	private List<Student> students;
 
 	public Skill() {
 	}
@@ -58,26 +56,12 @@ public class Skill implements Serializable {
 		this.internships = internships;
 	}
 
-	public List<StudentSkill> getStudentSkills() {
-		return this.studentSkills;
+	public List<Student> getStudents() {
+		return this.students;
 	}
 
-	public void setStudentSkills(List<StudentSkill> studentSkills) {
-		this.studentSkills = studentSkills;
-	}
-
-	public StudentSkill addStudentSkill(StudentSkill studentSkill) {
-		getStudentSkills().add(studentSkill);
-		studentSkill.setSkill(this);
-
-		return studentSkill;
-	}
-
-	public StudentSkill removeStudentSkill(StudentSkill studentSkill) {
-		getStudentSkills().remove(studentSkill);
-		studentSkill.setSkill(null);
-
-		return studentSkill;
+	public void setStudents(List<Student> students) {
+		this.students = students;
 	}
 
 }

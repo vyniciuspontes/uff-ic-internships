@@ -9,13 +9,13 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="student_foreign_laguage")
-@NamedQuery(name="StudentForeignLaguage.findAll", query="SELECT s FROM StudentForeignLaguage s")
-public class StudentForeignLaguage implements Serializable {
+@Table(name="student_foreign_language")
+@NamedQuery(name="StudentForeignLanguage.findAll", query="SELECT s FROM StudentForeignLanguage s")
+public class StudentForeignLanguage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private StudentForeignLaguagePK id;
+	private StudentForeignLanguagePK id;
 
 	@Column(name="reading_level", nullable=false, length=1)
 	private String readingLevel;
@@ -36,14 +36,14 @@ public class StudentForeignLaguage implements Serializable {
 	@JoinColumn(name="student_id", nullable=false, insertable=false, updatable=false)
 	private Student student;
 
-	public StudentForeignLaguage() {
+	public StudentForeignLanguage() {
 	}
 
-	public StudentForeignLaguagePK getId() {
+	public StudentForeignLanguagePK getId() {
 		return this.id;
 	}
 
-	public void setId(StudentForeignLaguagePK id) {
+	public void setId(StudentForeignLanguagePK id) {
 		this.id = id;
 	}
 

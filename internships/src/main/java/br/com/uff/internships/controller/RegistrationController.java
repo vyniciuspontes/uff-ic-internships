@@ -1,9 +1,7 @@
 package br.com.uff.internships.controller;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -19,12 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.uff.internships.entity.City;
+import br.com.uff.internships.entity.CoreActivity;
 import br.com.uff.internships.entity.ForeignLanguage;
 import br.com.uff.internships.entity.Skill;
+import br.com.uff.internships.form.RegistrationCompanyForm;
 import br.com.uff.internships.form.RegistrationStudentForm;
 import br.com.uff.internships.repository.CityRepository;
+import br.com.uff.internships.repository.CoreActivityRepository;
 import br.com.uff.internships.repository.ForeignLanguageRepository;
 import br.com.uff.internships.repository.SkillRepository;
+import br.com.uff.internships.service.CompanyService;
 import br.com.uff.internships.service.StudentService;
 
 @Controller
@@ -36,26 +38,29 @@ public class RegistrationController {
 	private CityRepository cityRepository;
 
 	@Autowired
+	private CoreActivityRepository coreActivityRepository;
+
+	@Autowired
 	private ForeignLanguageRepository foreignLanguageRepository;
 
 	@Autowired
 	private SkillRepository skillRepository;
-	
+
 	@Autowired
 	private StudentService studentService;
 
+	@Autowired
+	private CompanyService companyService;
+
 	@RequestMapping(value = { "/registration-student" }, method = RequestMethod.GET)
-	public String studentRegistration(Model model, HttpServletRequest request) {
-
-		for (Map.Entry<String, Object> entry : model.asMap().entrySet()) {
-
-			System.out.println(String.format("%s > %s", entry.getKey(), entry.getValue()));
-		}
+	public String studentRegistration(Model model) {
 
 		RegistrationStudentForm studentForm = new RegistrationStudentForm();
+
 		List<City> cities = cityRepository.getAll();
 		List<ForeignLanguage> foreignLanguages = foreignLanguageRepository.getAll();
 		List<Skill> skills = skillRepository.getAll();
+
 		model.addAttribute("cities", cities);
 		model.addAttribute("foreignLanguages", foreignLanguages);
 		model.addAttribute("skills", skills);
@@ -65,11 +70,33 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(value = { "/registration-company" }, method = RequestMethod.GET)
-	public ModelAndView companyRegistration() {
+	public String companyRegistration(Model model) {
+
+		RegistrationCompanyForm companyForm = new RegistrationCompanyForm();
+		List<City> cities = cityRepository.getAll();
+		List<CoreActivity> coreActivities = coreActivityRepository.getAll();
+
+		model.addAttribute("coreActivities", coreActivities);
+		model.addAttribute("cities", cities);
+		model.addAttribute("company", companyForm);
+
+		return "registration-company";
+	}
+
+	@RequestMapping(value = { "/registration-company" }, method = RequestMethod.POST)
+	public ModelAndView registrateCompany(@Valid @ModelAttribute("company") RegistrationCompanyForm companyForm,
+			BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
-		RegistrationStudentForm companyForm = new RegistrationStudentForm();
-		modelAndView.addObject("company", companyForm);
-		modelAndView.setViewName("registration-company");
+
+		if (bindingResult.hasErrors()) {
+
+			modelAndView.setViewName("/registration-company");
+			return modelAndView;
+		}
+
+		this.companyService.saveNewCompany(companyForm);
+
+		modelAndView.setViewName("/login");
 		return modelAndView;
 	}
 
@@ -95,7 +122,7 @@ public class RegistrationController {
 			}
 			return modelAndView;
 		}
-		
+
 		this.studentService.saveNewStudent(studentForm);
 
 		modelAndView.setViewName("/login");

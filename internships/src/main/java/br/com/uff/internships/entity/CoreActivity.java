@@ -4,28 +4,32 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the core_activity database table.
  * 
  */
 @Entity
-@Table(name="core_activity")
-@NamedQuery(name="CoreActivity.findAll", query="SELECT c FROM CoreActivity c")
+@Table(name = "core_activity")
+@NamedQuery(name = "CoreActivity.findAll", query = "SELECT c FROM CoreActivity c")
 public class CoreActivity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
 
-	//bi-directional many-to-one association to Company
-	@OneToMany(mappedBy="coreActivity")
+	// bi-directional many-to-one association to Company
+	@OneToMany(mappedBy = "coreActivity")
 	private List<Company> companies;
 
 	public CoreActivity() {
+	}
+
+	public CoreActivity(int id) {
+		super();
+		this.id = id;
 	}
 
 	public int getId() {

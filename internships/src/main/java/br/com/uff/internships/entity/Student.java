@@ -12,12 +12,8 @@ import java.util.List;
 @Entity
 @Table(name="student")
 @NamedQuery(name="Student.findAll", query="SELECT s FROM Student s")
-public class Student implements Serializable {
+public class Student extends User implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
 
 	@Column(name="enrollment_code")
 	private String enrollmentCode;
@@ -62,14 +58,6 @@ public class Student implements Serializable {
 	private List<Skill> skills;
 
 	public Student() {
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getEnrollmentCode() {

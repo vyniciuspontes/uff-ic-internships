@@ -2,6 +2,7 @@ package br.com.uff.internships.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 
@@ -12,38 +13,22 @@ import java.util.List;
 @Entity
 @Table(name="company")
 @NamedQuery(name="Company.findAll", query="SELECT c FROM Company c")
-public class Company implements Serializable {
+public class Company extends User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-
+	@Column(nullable=false, length=14)
 	private String cnpj;
 
 	//bi-directional many-to-one association to CoreActivity
 	@ManyToOne
-	@JoinColumn(name="core_activity_id")
+	@JoinColumn(name="core_activity_id", nullable=false)
 	private CoreActivity coreActivity;
-
-	//bi-directional one-to-one association to User
-	@OneToOne
-	@JoinColumn(name="id")
-	private User user;
 
 	//bi-directional many-to-one association to Internship
 	@OneToMany(mappedBy="company")
 	private List<Internship> internships;
 
 	public Company() {
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getCnpj() {
@@ -60,14 +45,6 @@ public class Company implements Serializable {
 
 	public void setCoreActivity(CoreActivity coreActivity) {
 		this.coreActivity = coreActivity;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public List<Internship> getInternships() {

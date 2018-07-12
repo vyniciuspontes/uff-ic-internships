@@ -25,6 +25,7 @@ import br.com.uff.internships.form.RegistrationStudentForm;
 import br.com.uff.internships.repository.CityRepository;
 import br.com.uff.internships.repository.ForeignLanguageRepository;
 import br.com.uff.internships.repository.SkillRepository;
+import br.com.uff.internships.service.StudentService;
 
 @Controller
 public class RegistrationController {
@@ -39,6 +40,9 @@ public class RegistrationController {
 
 	@Autowired
 	private SkillRepository skillRepository;
+	
+	@Autowired
+	private StudentService studentService;
 
 	@RequestMapping(value = { "/registration-student" }, method = RequestMethod.GET)
 	public String studentRegistration(Model model, HttpServletRequest request) {
@@ -89,10 +93,10 @@ public class RegistrationController {
 				log.info(e.toString());
 
 			}
-
-			log.info("" + studentForm.toString());
 			return modelAndView;
 		}
+		
+		this.studentService.saveNewStudent(studentForm);
 
 		modelAndView.setViewName("/login");
 		return modelAndView;

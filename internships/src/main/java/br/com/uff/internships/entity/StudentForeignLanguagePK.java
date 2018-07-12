@@ -20,6 +20,15 @@ public class StudentForeignLanguagePK implements Serializable {
 
 	public StudentForeignLanguagePK() {
 	}
+	
+	public StudentForeignLanguagePK(int studentId, int foreignLanguageId) {
+		super();
+		this.studentId = studentId;
+		this.foreignLanguageId = foreignLanguageId;
+	}
+
+
+
 	public int getStudentId() {
 		return this.studentId;
 	}

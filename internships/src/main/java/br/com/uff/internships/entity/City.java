@@ -24,16 +24,16 @@ public class City implements Serializable {
 	//bi-directional many-to-one association to User
 	@OneToMany(mappedBy="city")
 	private List<User> users;
-
+	
+	public City(Integer id) {
+		this.id = id;
+	}
+	
 	public City() {
 	}
 
 	public int getId() {
 		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {

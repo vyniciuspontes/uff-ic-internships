@@ -2,7 +2,7 @@ package br.com.uff.internships.form;
 
 import javax.validation.constraints.NotNull;
 
-public class RegistrationCompanyForm extends RegistrationUserForm {
+public class CompanyRegistrationForm extends UserRegistrationForm {
 
 	@NotNull
 	private String cnpj;
@@ -10,7 +10,7 @@ public class RegistrationCompanyForm extends RegistrationUserForm {
 	@NotNull
 	private Integer coreActivityId;
 
-	public RegistrationCompanyForm() {
+	public CompanyRegistrationForm() {
 	}
 
 	public String getCnpj() {

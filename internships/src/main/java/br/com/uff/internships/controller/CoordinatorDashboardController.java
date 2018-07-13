@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.uff.internships.entity.User;
-import br.com.uff.internships.service.CoordinatorDashboardService;
+import br.com.uff.internships.service.CoordinatorService;
 
 @Controller
 @RequestMapping(value="/coordinator-dashboard")
 public class CoordinatorDashboardController {
 	
 	@Autowired
-	private CoordinatorDashboardService service;
+	private CoordinatorService service;
 	
 	@RequestMapping(value = {"/home" }, method = RequestMethod.GET)
 	public String dashboardHome(Model model) {

@@ -21,8 +21,8 @@ import br.com.uff.internships.entity.City;
 import br.com.uff.internships.entity.CoreActivity;
 import br.com.uff.internships.entity.ForeignLanguage;
 import br.com.uff.internships.entity.Skill;
-import br.com.uff.internships.form.RegistrationCompanyForm;
-import br.com.uff.internships.form.RegistrationStudentForm;
+import br.com.uff.internships.form.CompanyRegistrationForm;
+import br.com.uff.internships.form.StudentRegistrationForm;
 import br.com.uff.internships.repository.CityRepository;
 import br.com.uff.internships.repository.CoreActivityRepository;
 import br.com.uff.internships.repository.ForeignLanguageRepository;
@@ -56,7 +56,7 @@ public class RegistrationController {
 	@RequestMapping(value = { "/registration-student" }, method = RequestMethod.GET)
 	public String studentRegistration(Model model) {
 
-		RegistrationStudentForm studentForm = new RegistrationStudentForm();
+		StudentRegistrationForm studentForm = new StudentRegistrationForm();
 
 		List<City> cities = cityRepository.getAll();
 		List<ForeignLanguage> foreignLanguages = foreignLanguageRepository.getAll();
@@ -73,7 +73,7 @@ public class RegistrationController {
 	@RequestMapping(value = { "/registration-company" }, method = RequestMethod.GET)
 	public String companyRegistration(Model model) {
 
-		RegistrationCompanyForm companyForm = new RegistrationCompanyForm();
+		CompanyRegistrationForm companyForm = new CompanyRegistrationForm();
 		List<City> cities = cityRepository.getAll();
 		List<CoreActivity> coreActivities = coreActivityRepository.getAll();
 
@@ -85,7 +85,7 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(value = { "/registration-company" }, method = RequestMethod.POST)
-	public ModelAndView registrateCompany(@Valid @RequestParam("selectedUserId") RegistrationCompanyForm companyForm,
+	public ModelAndView registrateCompany(@Valid @RequestParam("selectedUserId") CompanyRegistrationForm companyForm,
 			BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -109,18 +109,12 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(value = { "/registration-student" }, method = RequestMethod.POST)
-	public ModelAndView registrateStudent(@Valid @ModelAttribute("student") RegistrationStudentForm studentForm,
+	public ModelAndView registrateStudent(@Valid @ModelAttribute("student") StudentRegistrationForm studentForm,
 			BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("/registration-student");
-
-			for (ObjectError e : bindingResult.getAllErrors()) {
-
-				log.info(e.toString());
-
-			}
 			return modelAndView;
 		}
 

@@ -1,5 +1,7 @@
 package br.com.uff.internships.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -8,8 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.uff.internships.entity.City;
 import br.com.uff.internships.entity.Company;
 import br.com.uff.internships.entity.CoreActivity;
-import br.com.uff.internships.form.RegistrationCompanyForm;
+import br.com.uff.internships.entity.Internship;
+import br.com.uff.internships.entity.Skill;
+import br.com.uff.internships.form.CompanyRegistrationForm;
+import br.com.uff.internships.form.InternshipRegistrationForm;
 import br.com.uff.internships.repository.CompanyRepository;
+import br.com.uff.internships.repository.InternshipRepository;
 
 @Service
 public class CompanyService {
@@ -20,8 +26,14 @@ public class CompanyService {
 	@Autowired
 	private CompanyRepository companyRepository;
 
+	@Autowired
+	private InternshipRepository internshipRepository;
+
+	@Autowired
+	private UserService userService;
+
 	@Transactional
-	public void saveNewCompany(RegistrationCompanyForm form) {
+	public void saveNewCompany(CompanyRegistrationForm form) {
 
 		Company newCompany = new Company();
 
@@ -40,6 +52,26 @@ public class CompanyService {
 
 		companyRepository.create(newCompany);
 
+	}
+
+	@Transactional
+	public void saveNewInternship(InternshipRegistrationForm form, String companyEmail) {
+
+		Internship newInternship = new Internship();
+
+		Company company = (Company) userService.findUserByEmail(companyEmail);
+
+		newInternship.setAllowance(new BigDecimal(form.getAllowance()));
+		newInternship.setCompany(company);
+		newInternship.setDescription(form.getDescription());
+		newInternship.setTitle(form.getTitle());
+		newInternship.setDeadline(form.getDeadline());
+
+		for (Integer id : form.getSelectedSkills()) {
+			newInternship.addSkill(new Skill(id));
+		}
+
+		internshipRepository.create(newInternship);
 	}
 
 }

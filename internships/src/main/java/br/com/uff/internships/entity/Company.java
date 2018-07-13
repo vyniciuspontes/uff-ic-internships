@@ -27,7 +27,11 @@ public class Company extends User implements Serializable {
 	//bi-directional many-to-one association to Internship
 	@OneToMany(mappedBy="company")
 	private List<Internship> internships;
-
+	
+	public Company(Integer id) {
+		super(id);
+	}
+	
 	public Company() {
 	}
 

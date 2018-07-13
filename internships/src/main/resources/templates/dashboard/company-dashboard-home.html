@@ -1,16 +1,125 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<head th:include="fragments/general :: head(title='Company Dashboard')"></head>
 <body>
-	<h1>Company Dashboard</h1>
-	
-	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-	
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+			<a class="navbar-brand" href="#">Navbar</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active"><a class="nav-link" href="#">Home
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Features</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+					<li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a>
+					</li>
+				</ul>
+			</div>
+
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" class="form-control link-button"
+					value="Sign Out" />
+			</form>
+		</div>
+	</nav>
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-md-10">
+				<div class="registration-form card">
+					<div class="card-body">
+						<h3 class="card-title">Intenship Registration</h3>
+						<div class="card-text">
+
+							<form autocomplete="off" action="#"
+								th:action="@{/company-dashboard/registrate-internship}"
+								th:object="${internship}" method="post" class="form" role="form">
+
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label for="title-input">Title</label> <input type="text"
+											th:field="*{title}" placeholder="Title" class="form-control"
+											id="title-input"
+											th:classappend="${#fields.hasErrors('title')} ? is-invalid"
+											required /> <label th:if="${#fields.hasErrors('title')}"
+											th:errors="*{title}" class="invalid-feedback"></label>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="allowance-input">Allowance</label>
+										<div class="input-group">
+											<input type="number" min="0.00" max="10000.00" step="0.01"
+												th:field="*{allowance}" placeholder="Allowance"
+												id="allowance-input" class="form-control"
+												th:classappend="${#fields.hasErrors('allowance')} ? is-invalid"
+												required /> <label
+												th:if="${#fields.hasErrors('allowance')}"
+												th:errors="*{allowance}" class="invalid-feedback"></label>
+										</div>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="deadline-input">Submit Deadline</label> <input
+											class="form-control" type="date" placeholder="deadline"
+											th:field="*{deadline}" id="deadline-input"
+											th:classappend="${#fields.hasErrors('deadline')} ? is-invalid"
+											required> <label
+											th:if="${#fields.hasErrors('deadline')}"
+											th:errors="*{deadline}" class="invalid-feedback"></label>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md">
+										<label for="resume-input">Description</label>
+										<textarea class="form-control" type="textarea"
+											placeholder="Description" th:field="*{description}"
+											id="description-input"
+											th:classappend="${#fields.hasErrors('description')} ? is-invalid"
+											required></textarea>
+										<label th:if="${#fields.hasErrors('description')}"
+											th:errors="*{description}" class="invalid-feedback"></label>
+									</div>
+								</div>
+
+								<div class="form-row">
+
+									<div class="form-group col-md">
+										<label for="allowance-input">Desired Skills</label>
+										<div class="input-group">
+											<th:block th:each="skill : ${skills}">
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="checkbox"
+													th:id="${skill.id}" th:field="*{selectedSkills}" th:value="${skill.id}"> <label
+													class="form-check-label" th:for="${skill.id}" th:text="${skill.name}"></label>
+											</div>
+											</th:block>
+										</div>
+									</div>
+
+
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-md">
+										<button type="submit" class="btn btn-primary btn-block">Create
+											New Internship</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:include="fragments/general :: footer"> </footer>
 </body>
 </html>

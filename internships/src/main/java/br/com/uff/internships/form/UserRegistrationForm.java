@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class RegistrationUserForm {
+public class UserRegistrationForm {
 
 	@NotEmpty
 	@NotNull
@@ -38,7 +38,7 @@ public class RegistrationUserForm {
 
 	private String resume;
 	
-	public RegistrationUserForm() {}
+	public UserRegistrationForm() {}
 
 	public String getName() {
 		return name;

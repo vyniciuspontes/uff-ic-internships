@@ -10,7 +10,7 @@ import br.com.uff.internships.entity.User;
 import br.com.uff.internships.repository.UserRepository;
 
 @Service
-public class CoordinatorDashboardService {
+public class CoordinatorService {
 
 	@Autowired
 	private UserRepository userRepository;

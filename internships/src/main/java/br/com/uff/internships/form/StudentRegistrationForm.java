@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class RegistrationStudentForm extends RegistrationUserForm {
+public class StudentRegistrationForm extends UserRegistrationForm {
 
 	@NotNull
 	private String enrollmentCode;
@@ -22,7 +22,7 @@ public class RegistrationStudentForm extends RegistrationUserForm {
 	@DateTimeFormat (pattern="yyyy-MM-dd") 
 	private Date experienceEndDate;
 
-	public RegistrationStudentForm() {
+	public StudentRegistrationForm() {
 	}
 
 	public String getEnrollmentCode() {

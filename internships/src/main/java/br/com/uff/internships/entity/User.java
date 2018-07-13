@@ -53,6 +53,11 @@ public class User implements Serializable {
 	public User() {
 	}
 
+	public User(Integer id) {
+		super();
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return this.id;
 	}

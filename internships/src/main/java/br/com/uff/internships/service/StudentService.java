@@ -14,11 +14,12 @@ import br.com.uff.internships.entity.StudentForeignLanguage;
 import br.com.uff.internships.entity.StudentForeignLanguagePK;
 import br.com.uff.internships.entity.StudentSkill;
 import br.com.uff.internships.entity.StudentSkillPK;
-import br.com.uff.internships.form.RegistrationStudentForm;
+import br.com.uff.internships.form.StudentRegistrationForm;
 import br.com.uff.internships.repository.ExperienceRepository;
 import br.com.uff.internships.repository.StudentForeignLanguageRepository;
 import br.com.uff.internships.repository.StudentRepository;
 import br.com.uff.internships.repository.StudentSkillRepository;
+import br.com.uff.internships.repository.UserRepository;
 
 @Service
 public class StudentService {
@@ -36,10 +37,13 @@ public class StudentService {
 	private ExperienceRepository experienceRepository;
 
 	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Transactional
-	public void saveNewStudent(RegistrationStudentForm form) {
+	public void saveNewStudent(StudentRegistrationForm form) {
 
 		Student newStudent = new Student();
 		
@@ -89,5 +93,9 @@ public class StudentService {
 		}
 
 	}
-
+	
+	public void applyForInternship(Integer internshipId, String studentEmail) {
+		
+		Student student = (Student) this.userRepository.findByEmail(studentEmail);
+	}
 }

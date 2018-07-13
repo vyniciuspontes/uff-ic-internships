@@ -14,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.uff.internships.entity.City;
@@ -84,7 +85,7 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(value = { "/registration-company" }, method = RequestMethod.POST)
-	public ModelAndView registrateCompany(@Valid @ModelAttribute("company") RegistrationCompanyForm companyForm,
+	public ModelAndView registrateCompany(@Valid @RequestParam("selectedUserId") RegistrationCompanyForm companyForm,
 			BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 

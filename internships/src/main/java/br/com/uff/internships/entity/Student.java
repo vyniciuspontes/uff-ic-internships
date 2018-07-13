@@ -45,7 +45,7 @@ public class Student extends User implements Serializable {
 	private List<ForeignLanguage> foreignLanguages;
 
 	//bi-directional many-to-many association to Skill
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 		name="student_skill"
 		, joinColumns={

@@ -12,13 +12,13 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
 		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u where u.email=?") })
-abstract public class User implements Serializable {
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	@Column(nullable = false, length = 100)
 	private String address;
@@ -47,14 +47,17 @@ abstract public class User implements Serializable {
 	@Column(nullable = true, length = 3000)
 	private String resume;
 
+	@Column(nullable = false)
+	private Boolean validated;
+
 	public User() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -120,6 +123,14 @@ abstract public class User implements Serializable {
 
 	public void setResume(String resume) {
 		this.resume = resume;
+	}
+
+	public Boolean getValidated() {
+		return validated;
+	}
+
+	public void setValidated(Boolean validated) {
+		this.validated = validated;
 	}
 
 	@Override

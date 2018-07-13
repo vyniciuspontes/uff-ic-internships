@@ -25,4 +25,10 @@ public class UserRepository extends AbstractDAOImpl<User>{
 		
 		return resultList.get(0);
 	}
+	
+	public List<User> findByValidation(Boolean validated){
+		
+		return this.entityManager.createQuery("select u from User u where u.validated=:validated", User.class)
+			.setParameter("validated", validated).getResultList();
+	}
 }

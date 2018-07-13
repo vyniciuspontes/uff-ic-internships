@@ -35,7 +35,7 @@ public abstract class AbstractDAOImpl<T> implements AbstractDAO<T>{
     }
 
     @Override
-    public T find(Long id) {
+    public T find(Integer id) {
         return entityManager.find(entityClass, id);
     }
 }

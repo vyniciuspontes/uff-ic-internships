@@ -20,7 +20,7 @@ public class Company extends User implements Serializable {
 	private String cnpj;
 
 	//bi-directional many-to-one association to CoreActivity
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="core_activity_id", nullable=false)
 	private CoreActivity coreActivity;
 

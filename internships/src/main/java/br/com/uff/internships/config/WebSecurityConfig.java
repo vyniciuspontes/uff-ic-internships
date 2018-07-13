@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			+ "	when c.cnpj is not null then 'COMPANY'\n" + "	when co.teacher_code is not null then 'COORDINATOR' \n"
 			+ "	end as role \n" + "	from user u\n" + "	left join student s on s.id = u.id\n"
 			+ "	left join company c on c.id = u.id\n" + "	left join coordinator co on co.id = u.id\n"
-			+ "	where email=?";
+			+ "	where email=? and validated=true";
 
 	@Autowired
 	private DataSource dataSource;

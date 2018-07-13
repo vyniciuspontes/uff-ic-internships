@@ -53,6 +53,7 @@ public class StudentService {
 		newStudent.setCity(new City(form.getCityId()));
 		newStudent.setAddress(form.getAddress());
 		newStudent.setPassword(encryptedPassword);
+		newStudent.setResume(form.getResume());
 
 		studentRepository.create(newStudent);
 

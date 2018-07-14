@@ -28,15 +28,22 @@ public class StudentDashboardController {
 	 
 
 	@RequestMapping(value = { "/search-internships" }, method = RequestMethod.GET)
-	public String dashboardHome(Model model, Authentication authentication, HttpServletRequest httpServletRequest) {
+	public String searchInternships(Model model, Authentication authentication) {
 		
 		List<Internship> internships = this.studentService.findAllAppliableInternships(authentication.getName());
 		
 		model.addAttribute("internships", internships);
 		
-		log.info(String.format("URI -> %s", httpServletRequest.getRequestURI()));
-		
 		return "/dashboard/student-dashboard-search-internships";
+	}
+	
+	@RequestMapping(value = { "/current-processes" }, method = RequestMethod.GET)
+	public String showCurrentProcesses(Model model, Authentication authentication) {
+		
+		List<Internship> internships = this.studentService.findAllStudentInternships(authentication.getName());
+		
+		model.addAttribute("internships", internships);
+		return "/dashboard/student-dashboard-current-processes";
 	}
 
 	@RequestMapping(value = { "/apply-internship" }, method = RequestMethod.POST)

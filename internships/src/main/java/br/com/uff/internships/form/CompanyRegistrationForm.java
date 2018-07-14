@@ -2,9 +2,12 @@ package br.com.uff.internships.form;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 public class CompanyRegistrationForm extends UserRegistrationForm {
 
 	@NotNull
+	@Length(min=1,max=14)
 	private String cnpj;
 
 	@NotNull

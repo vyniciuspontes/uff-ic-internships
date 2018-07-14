@@ -85,13 +85,19 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(value = { "/registration-company" }, method = RequestMethod.POST)
-	public ModelAndView registrateCompany(@Valid @RequestParam("selectedUserId") CompanyRegistrationForm companyForm,
+	public ModelAndView registrateCompany(@Valid @ModelAttribute("company") CompanyRegistrationForm companyForm,
 			BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		if (bindingResult.hasErrors()) {
 
 			modelAndView.setViewName("/registration-company");
+			List<City> cities = cityRepository.getAll();
+			List<CoreActivity> coreActivities = coreActivityRepository.getAll();
+
+			modelAndView.getModel().put("coreActivities", coreActivities);
+			modelAndView.getModel().put("cities", cities);
+			modelAndView.getModel().put("company", companyForm);
 			return modelAndView;
 		}
 

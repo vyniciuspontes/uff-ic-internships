@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.com.uff.internships.entity.Internship;
 import br.com.uff.internships.entity.Skill;
 import br.com.uff.internships.form.InternshipRegistrationForm;
 import br.com.uff.internships.repository.SkillRepository;
@@ -46,11 +47,21 @@ public class CompanyDashboardController {
 		
 		if(bindingResult.hasErrors()) {
 			
-			return "/dashboard/company-dashboard-home";
+			return "/dashboard/company-dashboard-create-internship";
 		}
 		
 		companyService.saveNewInternship(internshipForm, authentication.getName());
 		
-		return "/dashboard/company-dashboard-home";
+		return "redirect:/dashboard/company/current-processes";
+	}
+	
+	@RequestMapping(value = {"/current-processes"}, method = RequestMethod.GET)
+	public String showCurrentProcesses(Model model, Authentication authentication) {
+		
+		List<Internship> internships = this.companyService.findCompanyInternships(authentication.getName());
+		
+		model.addAttribute("internships", internships);
+		
+		return "/dashboard/company-dashboard-current-processes";
 	}
 }

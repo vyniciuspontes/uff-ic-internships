@@ -3,7 +3,8 @@
 <head th:include="fragments/general :: head(title='Company Dashboard')"></head>
 <body>
 
-	<th:block th:replace="fragments/general :: dashboard-navbar(brand='Company Dashboard', role='company')"></th:block>
+	<th:block
+		th:replace="fragments/general :: dashboard-navbar(brand='Company Dashboard', role='company')"></th:block>
 
 	<div class="container">
 
@@ -11,11 +12,11 @@
 			<div class="col-md-10">
 				<div class="registration-form card">
 					<div class="card-body">
-						<h3 class="card-title">Intenship Registration</h3>
+						<h3 class="card-title">Create Internship</h3>
 						<div class="card-text">
 
 							<form autocomplete="off" action="#"
-								th:action="@{/company-dashboard/registrate-internship}"
+								th:action="@{/dashboard/company/create-internship}"
 								th:object="${internship}" method="post" class="form" role="form">
 
 								<div class="form-row">

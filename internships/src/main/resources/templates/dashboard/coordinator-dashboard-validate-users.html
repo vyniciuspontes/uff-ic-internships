@@ -13,6 +13,7 @@
 					<div class="card-body">
 						<h4 class="card-title" th:text="${user.name}"></h4>
 						<h5 th:text="${user.class.simpleName}"></h5>
+						<p th:text="'Email - ' + ${user.email}"></p>
 						<p class="card-text"
 							th:if="${#strings.equals(user.class.simpleName,'Company')}"
 							th:text="'CNPJ - ' + ${user.cnpj}"></p>
@@ -26,7 +27,7 @@
 						<p
 							th:text="'Address - ' + ${user.address} + ' - ' + ${user.complement}"></p>
 						<p th:text="'Resume - ' + ${user.resume}"></p>
-						<form action="#" th:action="@{/coordinator-dashboard/home}"
+						<form action="#" th:action="@{/dashboard/coordinator/validate-users}"
 							method="post">
 							<input type="hidden" name="selectedUserId" th:value="${user.id}">
 							<input type="submit" class="btn btn-primary" value="Validate">

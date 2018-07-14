@@ -123,6 +123,13 @@ public class StudentService {
 
 		return this.internshipRepository.findAllApplicableInternships(student.getId());
 	}
+	
+	public List<Internship> findAllStudentInternships(String studentEmail) {
+
+		Student student = (Student) this.userRepository.findByEmail(studentEmail);
+
+		return this.internshipRepository.findByStudent(student.getId());
+	}
 
 	@Transactional
 	public void applyForInternship(Integer internshipId, String studentEmail) {

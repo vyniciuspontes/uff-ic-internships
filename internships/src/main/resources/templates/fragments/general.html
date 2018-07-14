@@ -36,10 +36,10 @@
 					<a class="nav-link" th:href="@{ ('/dashboard/' + ${role} + '/current-processes')}">Current Processes</a></li>
 					<li th:if="${#strings.equals(role, 'coordinator')}" class="nav-item"
 					th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/coordinator/validate-users' ? 'active':''}">
-					<a class="nav-link" href="#">Validate Users</a></li>
+					<a class="nav-link" href="/dashboard/coordinator/validate-users">Validate Users</a></li>
 					<li th:if="${#strings.equals(role, 'coordinator')}" class="nav-item"
 					th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/coordinator/validate-hiring' ? 'active':''}">
-					<a class="nav-link" href="#">Validate Hiring</a></li>
+					<a class="nav-link" href="/dashboard/coordinator/validate-hiring">Validate Hiring</a></li>
 				</ul>
 				
 				<ul class="navbar-nav ml-auto">

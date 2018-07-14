@@ -1,6 +1,7 @@
 package br.com.uff.internships.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +17,7 @@ import br.com.uff.internships.form.CompanyRegistrationForm;
 import br.com.uff.internships.form.InternshipRegistrationForm;
 import br.com.uff.internships.repository.CompanyRepository;
 import br.com.uff.internships.repository.InternshipRepository;
+import br.com.uff.internships.repository.UserRepository;
 
 @Service
 public class CompanyService {
@@ -30,7 +32,7 @@ public class CompanyService {
 	private InternshipRepository internshipRepository;
 
 	@Autowired
-	private UserService userService;
+	private UserRepository userRepository;
 
 	@Transactional
 	public void saveNewCompany(CompanyRegistrationForm form) {
@@ -60,7 +62,7 @@ public class CompanyService {
 
 		Internship newInternship = new Internship();
 
-		Company company = (Company) userService.findUserByEmail(companyEmail);
+		Company company = (Company) userRepository.findByEmail(companyEmail);
 
 		newInternship.setAllowance(new BigDecimal(form.getAllowance()));
 		newInternship.setCompany(company);
@@ -74,5 +76,13 @@ public class CompanyService {
 
 		internshipRepository.create(newInternship);
 	}
+	
+	public List<Internship> findCompanyInternships(String companyEmail) {
+		
+		Company company = (Company) this.userRepository.findByEmail(companyEmail);
+		
+		return this.internshipRepository.findByCompany(company.getId());
+	}
+	
 
 }

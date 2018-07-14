@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head th:include="fragments/general :: head(title='Student Dashboard')"></head>
+<head th:include="fragments/general :: head(title='Company Dashboard')"></head>
 <body>
-	
-	<th:block th:replace="fragments/general :: dashboard-navbar(brand='Student Dashboard', role='student')"></th:block>
+
+	<th:block
+		th:replace="fragments/general :: dashboard-navbar(brand='Company Dashboard', role='company')"></th:block>
 
 	<div class="container">
 		<div class="card-columns mt-4" style="display: inline-block;">
@@ -19,12 +20,6 @@
 
 						<p th:text="'Submit Deadline - '+ ${internship.deadline}"></p>
 
-						<form action="#"
-							th:action="@{/dashboard/student/apply-internship}" method="post">
-							<input type="hidden" name="internshipId"
-								th:value="${internship.id}" method="post"> <input
-								type="submit" class="btn btn-primary" value="Apply">
-						</form>
 					</div>
 				</div>
 			</th:block>
@@ -32,6 +27,5 @@
 	</div>
 
 	<footer th:include="fragments/general :: footer"> </footer>
-
 </body>
 </html>

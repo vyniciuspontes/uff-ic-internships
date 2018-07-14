@@ -9,28 +9,38 @@ import javax.persistence.*;
  */
 @Embeddable
 public class InternshipStudentPK implements Serializable {
-	//default serial version id, required for serializable classes.
+	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="internship_id", insertable=false, updatable=false, unique=true, nullable=false) 
+	@Column(name = "internship_id", insertable = false, updatable = false, unique = true, nullable = false)
 	private int internshipId;
 
-	 @Column(insertable=false, updatable=false, unique=true, nullable=false) 
-	private int student_Id;
+	@Column(name = "student_id", insertable = false, updatable = false, unique = true, nullable = false)
+	private int studentId;
 
 	public InternshipStudentPK() {
 	}
+
+	public InternshipStudentPK(int internshipId, int studentId) {
+		super();
+		this.internshipId = internshipId;
+		this.studentId = studentId;
+	}
+
 	public int getInternshipId() {
 		return this.internshipId;
 	}
+
 	public void setInternshipId(int internshipId) {
 		this.internshipId = internshipId;
 	}
-	public int getStudent_Id() {
-		return this.student_Id;
+
+	public int getStudentId() {
+		return studentId;
 	}
-	public void setStudent_Id(int student_Id) {
-		this.student_Id = student_Id;
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
 	}
 
 	public boolean equals(Object other) {
@@ -40,18 +50,16 @@ public class InternshipStudentPK implements Serializable {
 		if (!(other instanceof InternshipStudentPK)) {
 			return false;
 		}
-		InternshipStudentPK castOther = (InternshipStudentPK)other;
-		return 
-			(this.internshipId == castOther.internshipId)
-			&& (this.student_Id == castOther.student_Id);
+		InternshipStudentPK castOther = (InternshipStudentPK) other;
+		return (this.internshipId == castOther.internshipId) && (this.studentId == castOther.studentId);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
 		hash = hash * prime + this.internshipId;
-		hash = hash * prime + this.student_Id;
-		
+		hash = hash * prime + this.studentId;
+
 		return hash;
 	}
 }

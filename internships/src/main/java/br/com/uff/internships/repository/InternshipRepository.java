@@ -16,4 +16,14 @@ public class InternshipRepository extends AbstractDAOImpl<Internship>{
 	public List<Internship> getAll() {
 		return this.entityManager.createQuery("select e from Internship e", Internship.class).getResultList();
 	}
+	
+	public List<Internship> findAllApplicableInternships(Integer studentId) {
+		
+		String query = "select i from Internship i "
+				+ "left join InternshipStudent ist on i.id = ist.id.internshipId and ist.id.studentId=:studentId "
+				+ "where ist.id.internshipId is null";
+		
+		return this.entityManager.createQuery(query, Internship.class).setParameter("studentId", studentId).getResultList();
+		
+	}
 }

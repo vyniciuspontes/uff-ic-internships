@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head
+	th:include="fragments/general :: head(title='Coordinator Dashboard')"></head>
+<body>
+	
+	<th:block th:replace="fragments/general :: dashboard-navbar(brand='Coordinator Dashboard', role='coordinator')"></th:block>
+
+	<div class="container">
+		<div class="card-columns mt-4" style="display: inline-block;">
+			<th:block th:each="user : ${nonValidatedUsers}">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title" th:text="${user.name}"></h4>
+						<h5 th:text="${user.class.simpleName}"></h5>
+						<p class="card-text"
+							th:if="${#strings.equals(user.class.simpleName,'Company')}"
+							th:text="'CNPJ - ' + ${user.cnpj}"></p>
+						<p class="card-text"
+							th:if="${#strings.equals(user.class.simpleName,'Company')}"
+							th:text="'Core Activity - ' + ${user.coreActivity.name}"></p>
+						<p class="card-text"
+							th:if="${#strings.equals(user.class.simpleName,'Student')}"
+							th:text="'Enrollment - ' + ${user.enrollmentCode}"></p>
+						<p th:text="'City - '+ ${user.city.name}"></p>
+						<p
+							th:text="'Address - ' + ${user.address} + ' - ' + ${user.complement}"></p>
+						<p th:text="'Resume - ' + ${user.resume}"></p>
+						<form action="#" th:action="@{/coordinator-dashboard/home}"
+							method="post">
+							<input type="hidden" name="selectedUserId" th:value="${user.id}">
+							<input type="submit" class="btn btn-primary" value="Validate">
+						</form>
+					</div>
+				</div>
+			</th:block>
+		</div>
+	</div>
+
+	<footer th:include="fragments/general :: footer"> </footer>
+
+</body>
+</html>

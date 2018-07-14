@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +44,7 @@ public class Internship implements Serializable {
 	private String title;
 
 	// bi-directional many-to-one association to Company
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Company company;
 
 	// bi-directional many-to-many association to Skill

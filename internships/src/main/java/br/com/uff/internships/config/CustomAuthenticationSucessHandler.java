@@ -52,13 +52,13 @@ public class CustomAuthenticationSucessHandler implements AuthenticationSuccessH
 		for (GrantedAuthority grantedAuthority : authorities) {
 			if (grantedAuthority.getAuthority().equals(STUDENT_ROLE)) {
 				
-				return "/student-dashboard/home";
+				return "/dashboard/student/search-internships";
 			} else if (grantedAuthority.getAuthority().equals(COORDINATOR_ROLE)) {
 				
-				return "/coordinator-dashboard/home";
+				return "/dashboard/coordinator/validate-users";
 			}else if (grantedAuthority.getAuthority().equals(COMPANY_ROLE)) {
 				
-				return "/company-dashboard/home";
+				return "/dashboard/company/create-internship";
 			}
 		}
 		

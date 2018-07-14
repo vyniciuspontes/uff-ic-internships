@@ -1,4 +1,4 @@
-package br.com.uff.internships.controller;
+package br.com.uff.internships.controller.dashboard;
 
 
 import java.util.List;
@@ -14,27 +14,27 @@ import br.com.uff.internships.entity.User;
 import br.com.uff.internships.service.CoordinatorService;
 
 @Controller
-@RequestMapping(value="/coordinator-dashboard")
+@RequestMapping(value="/dashboard/coordinator")
 public class CoordinatorDashboardController {
 	
 	@Autowired
 	private CoordinatorService service;
 	
-	@RequestMapping(value = {"/home" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/validate-users" }, method = RequestMethod.GET)
 	public String dashboardHome(Model model) {
 		
 		List<User> nonValidatedUsers = service.findAllNonValidatedUsers();
 		
 		model.addAttribute("nonValidatedUsers", nonValidatedUsers);
 		
-		return "/dashboard/coordinator-dashboard-home";
+		return "/dashboard/coordinator-dashboard-validate-users";
 	}
 	
-	@RequestMapping(value = {"/home" }, method = RequestMethod.POST)
+	@RequestMapping(value = {"/validate-users" }, method = RequestMethod.POST)
 	public String validateUser(@RequestParam(name="selectedUserId") Integer selectedUserId) {
 		
 		this.service.validateUser(selectedUserId);
 		
-		return "redirect:/coordinator-dashboard/home";
+		return "redirect:/dashboard/coordinator/validate-users";
 	}
 }

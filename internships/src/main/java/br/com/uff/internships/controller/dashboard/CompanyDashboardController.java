@@ -1,4 +1,4 @@
-package br.com.uff.internships.controller;
+package br.com.uff.internships.controller.dashboard;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import br.com.uff.internships.repository.SkillRepository;
 import br.com.uff.internships.service.CompanyService;
 
 @Controller
-@RequestMapping(value="/company-dashboard")
+@RequestMapping(value="/dashboard/company")
 public class CompanyDashboardController {
 	
 	@Autowired
@@ -28,7 +28,7 @@ public class CompanyDashboardController {
 	@Autowired
 	private SkillRepository skillrepository;
 	
-	@RequestMapping(value = {"/home" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/create-internship"}, method = RequestMethod.GET)
 	public String dashboardHome(Model model) {
 		
 		InternshipRegistrationForm form = new InternshipRegistrationForm();
@@ -37,10 +37,10 @@ public class CompanyDashboardController {
 		model.addAttribute("internship", form);
 		model.addAttribute("skills", skills);
 		
-		return "/dashboard/company-dashboard-home";
+		return "/dashboard/company-dashboard-create-internship";
 	}
 	
-	@RequestMapping(value = {"/registrate-internship" }, method = RequestMethod.POST)
+	@RequestMapping(value = {"/create-internship" }, method = RequestMethod.POST)
 	public String registrateInternship(@Valid @ModelAttribute("internship") InternshipRegistrationForm internshipForm,
 			BindingResult bindingResult, Authentication authentication) {
 		

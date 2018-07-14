@@ -49,6 +49,7 @@ public class CompanyService {
 		newCompany.setPassword(encryptedPassword);
 		newCompany.setCoreActivity(new CoreActivity(form.getCoreActivityId()));
 		newCompany.setResume(form.getResume());
+		newCompany.setValidated(false);
 
 		companyRepository.create(newCompany);
 

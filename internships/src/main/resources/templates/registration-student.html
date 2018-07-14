@@ -132,7 +132,7 @@
 
 																		</div>
 																		<div class="col-md-3">
-																			<input type="number" class="form-control" min="0"
+																			<input type="number" v class="form-control" min="0"
 																				max="5" placeholder="0"
 																				th:id="'foreign-language-' + ${foreignLanguage.name} + '-level'"
 																				th:field="*{foreignLanguageLevel[__${foreignLanguage.id}__]}">
@@ -156,7 +156,7 @@
 																	<div class="row">
 																		<div class="col-md-8">
 
-																			<label for="skill-${foreignLanguage.name}-level"
+																			<label for="skill-${skill.name}-level"
 																				th:text="${skill.name}"></label>
 
 																		</div>

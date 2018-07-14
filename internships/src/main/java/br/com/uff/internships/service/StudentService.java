@@ -1,5 +1,7 @@
 package br.com.uff.internships.service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.uff.internships.entity.City;
 import br.com.uff.internships.entity.Experience;
+import br.com.uff.internships.entity.Internship;
+import br.com.uff.internships.entity.InternshipStudent;
+import br.com.uff.internships.entity.InternshipStudentPK;
+import br.com.uff.internships.entity.InternshipStudentStatus;
 import br.com.uff.internships.entity.Student;
 import br.com.uff.internships.entity.StudentForeignLanguage;
 import br.com.uff.internships.entity.StudentForeignLanguagePK;
@@ -16,6 +22,9 @@ import br.com.uff.internships.entity.StudentSkill;
 import br.com.uff.internships.entity.StudentSkillPK;
 import br.com.uff.internships.form.StudentRegistrationForm;
 import br.com.uff.internships.repository.ExperienceRepository;
+import br.com.uff.internships.repository.InternshipRepository;
+import br.com.uff.internships.repository.InternshipStudentRepository;
+import br.com.uff.internships.repository.InternshipStudentStatusRepository;
 import br.com.uff.internships.repository.StudentForeignLanguageRepository;
 import br.com.uff.internships.repository.StudentRepository;
 import br.com.uff.internships.repository.StudentSkillRepository;
@@ -38,17 +47,26 @@ public class StudentService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
+	@Autowired
+	private InternshipStudentRepository internshipStudentRepository;
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private InternshipRepository internshipRepository;
+	
+	@Autowired
+	private InternshipStudentStatusRepository internshipStudentStatusRepository;
 
 	@Transactional
 	public void saveNewStudent(StudentRegistrationForm form) {
 
 		Student newStudent = new Student();
-		
+
 		String encryptedPassword = bCryptPasswordEncoder.encode(form.getPassword());
-		
+
 		newStudent.setName(form.getName());
 		newStudent.setBornDate(form.getBornDate());
 		newStudent.setComplement(form.getComplement());
@@ -58,6 +76,7 @@ public class StudentService {
 		newStudent.setAddress(form.getAddress());
 		newStudent.setPassword(encryptedPassword);
 		newStudent.setResume(form.getResume());
+		newStudent.setValidated(false);
 
 		studentRepository.create(newStudent);
 
@@ -73,10 +92,12 @@ public class StudentService {
 
 		for (Map.Entry<Integer, Integer> entry : form.getForeignLanguageLevel().entrySet()) {
 
+			String level = entry.getValue() != null ? entry.getValue().toString() : "0";
+
 			StudentForeignLanguage newStudentForeignLanguage = new StudentForeignLanguage();
 			newStudentForeignLanguage
 					.setId(new StudentForeignLanguagePK(newStudent.getId(), entry.getKey().intValue()));
-			newStudentForeignLanguage.setLevel(entry.getValue().toString());
+			newStudentForeignLanguage.setLevel(level);
 
 			studentForeignLanguageRepository.create(newStudentForeignLanguage);
 
@@ -84,18 +105,41 @@ public class StudentService {
 
 		for (Map.Entry<Integer, Integer> entry : form.getSkillLevel().entrySet()) {
 
+			String level = entry.getValue() != null ? entry.getValue().toString() : "0";
+
 			StudentSkill newStudentSkill = new StudentSkill();
 			newStudentSkill.setId(new StudentSkillPK(newStudent.getId(), entry.getKey().intValue()));
-			newStudentSkill.setLevel(entry.getValue().toString());
+			newStudentSkill.setLevel(level);
 
 			studentSkillRepository.create(newStudentSkill);
 
 		}
 
 	}
-	
-	public void applyForInternship(Integer internshipId, String studentEmail) {
-		
+
+	public List<Internship> findAllAppliableInternships(String studentEmail) {
+
 		Student student = (Student) this.userRepository.findByEmail(studentEmail);
+
+		return this.internshipRepository.findAllApplicableInternships(student.getId());
+	}
+
+	@Transactional
+	public void applyForInternship(Integer internshipId, String studentEmail) {
+
+		Student student = (Student) this.userRepository.findByEmail(studentEmail);
+
+		InternshipStudent newInternshipStudent = new InternshipStudent(
+				new InternshipStudentPK(internshipId, student.getId()));
+
+		internshipStudentRepository.create(newInternshipStudent);
+
+		InternshipStudentStatus status = new InternshipStudentStatus();
+		
+		status.setStatus(InternshipStudentStatus.Status.PROFILE_ANALYSIS.name());
+		status.setDatetime(new Date());
+		status.setInternshipStudent(newInternshipStudent);
+		internshipStudentStatusRepository.create(status);
+
 	}
 }

@@ -29,7 +29,7 @@ public class CompanyDashboardController {
 	@Autowired
 	private SkillRepository skillrepository;
 	
-	@RequestMapping(value = {"/create-internship"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/internship/new"}, method = RequestMethod.GET)
 	public String dashboardHome(Model model) {
 		
 		InternshipRegistrationForm form = new InternshipRegistrationForm();
@@ -41,7 +41,7 @@ public class CompanyDashboardController {
 		return "/dashboard/company-dashboard-create-internship";
 	}
 	
-	@RequestMapping(value = {"/create-internship" }, method = RequestMethod.POST)
+	@RequestMapping(value = {"/internship/new" }, method = RequestMethod.POST)
 	public String registrateInternship(@Valid @ModelAttribute("internship") InternshipRegistrationForm internshipForm,
 			BindingResult bindingResult, Authentication authentication) {
 		
@@ -52,10 +52,10 @@ public class CompanyDashboardController {
 		
 		companyService.saveNewInternship(internshipForm, authentication.getName());
 		
-		return "redirect:/dashboard/company/current-processes";
+		return "redirect:/dashboard/company/internship";
 	}
 	
-	@RequestMapping(value = {"/current-processes"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/internship"}, method = RequestMethod.GET)
 	public String showCurrentProcesses(Model model, Authentication authentication) {
 		
 		List<Internship> internships = this.companyService.findCompanyInternships(authentication.getName());
@@ -63,5 +63,15 @@ public class CompanyDashboardController {
 		model.addAttribute("internships", internships);
 		
 		return "/dashboard/company-dashboard-current-processes";
+	}
+	
+	@RequestMapping(value = {"/internship/candidates"}, method = RequestMethod.GET)
+	public String showProcessCandidates(Model model, Authentication authentication) {
+		
+		List<Internship> internships = this.companyService.findCompanyInternships(authentication.getName());
+		
+		model.addAttribute("internships", internships);
+		
+		return "/dashboard/company-dashboard-current-processes-candidates";
 	}
 }

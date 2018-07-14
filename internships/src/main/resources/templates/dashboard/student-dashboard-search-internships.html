@@ -20,7 +20,7 @@
 						<p th:text="'Submit Deadline - '+ ${internship.deadline}"></p>
 
 						<form action="#"
-							th:action="@{/dashboard/student/apply-internship}" method="post">
+							th:action="@{/dashboard/student/internship/apply}" method="post">
 							<input type="hidden" name="internshipId"
 								th:value="${internship.id}" method="post"> <input
 								type="submit" class="btn btn-primary" value="Apply">

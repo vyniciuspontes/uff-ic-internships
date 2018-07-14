@@ -26,17 +26,17 @@
 				<!-- navbar pages -->
 				<ul class="navbar-nav mr-auto">
 					<li th:if="${#strings.equals(role, 'company')}" class="nav-item"
-					th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/company/create-internship' ? 'active':''}">
-					<a class="nav-link" th:href="@{/dashboard/company/create-internship}">Create Internship</a></li>
+					th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/company/internship/new' ? 'active':''}">
+					<a class="nav-link" th:href="@{/dashboard/company/internship/new}">Create Internship</a></li>
 					<li th:if="${#strings.equals(role, 'student')}" class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/student/search-internships' ? 'active':''}">
-					<a class="nav-link" th:href="@{/dashboard/student/search-internships}">Search Internships</a></li>
+						th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/student/internship/search' ? 'active':''}">
+					<a class="nav-link" th:href="@{/dashboard/student/internship/search}">Search Internships</a></li>
 					<li th:if="${#strings.equals(role, 'student') or #strings.equals(role, 'company')}" 
-						th:classappend="${#httpServletRequest.getRequestURI() == ('/dashboard/' + role + '/current-processes') ? 'active':''}">
-					<a class="nav-link" th:href="@{ ('/dashboard/' + ${role} + '/current-processes')}">Current Processes</a></li>
+						th:classappend="${#httpServletRequest.getRequestURI() == ('/dashboard/' + role + '/internship') ? 'active':''}">
+					<a class="nav-link" th:href="@{ ('/dashboard/' + ${role} + '/internship')}">Current Processes</a></li>
 					<li th:if="${#strings.equals(role, 'coordinator')}" class="nav-item"
-					th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/coordinator/validate-users' ? 'active':''}">
-					<a class="nav-link" href="/dashboard/coordinator/validate-users">Validate Users</a></li>
+					th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/coordinator/user/validate' ? 'active':''}">
+					<a class="nav-link" href="/dashboard/coordinator/user/validate">Validate Users</a></li>
 					<li th:if="${#strings.equals(role, 'coordinator')}" class="nav-item"
 					th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/coordinator/validate-hiring' ? 'active':''}">
 					<a class="nav-link" href="/dashboard/coordinator/validate-hiring">Validate Hiring</a></li>

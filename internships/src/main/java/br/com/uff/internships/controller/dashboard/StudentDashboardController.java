@@ -27,7 +27,7 @@ public class StudentDashboardController {
 	private StudentService studentService;
 	 
 
-	@RequestMapping(value = { "/search-internships" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/internship/search" }, method = RequestMethod.GET)
 	public String searchInternships(Model model, Authentication authentication) {
 		
 		List<Internship> internships = this.studentService.findAllAppliableInternships(authentication.getName());
@@ -37,7 +37,7 @@ public class StudentDashboardController {
 		return "/dashboard/student-dashboard-search-internships";
 	}
 	
-	@RequestMapping(value = { "/current-processes" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/internship" }, method = RequestMethod.GET)
 	public String showCurrentProcesses(Model model, Authentication authentication) {
 		
 		List<Internship> internships = this.studentService.findAllStudentInternships(authentication.getName());
@@ -46,12 +46,12 @@ public class StudentDashboardController {
 		return "/dashboard/student-dashboard-current-processes";
 	}
 
-	@RequestMapping(value = { "/apply-internship" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/internship/apply" }, method = RequestMethod.POST)
 	public String applyForInternship(@RequestParam("internshipId") Integer internshipId,
 			Authentication authentication) {
 
 		studentService.applyForInternship(internshipId, authentication.getName());
 
-		return "redirect:/dashboard/student/search-internships";
+		return "redirect:/dashboard/student/internship/search";
 	}
 }

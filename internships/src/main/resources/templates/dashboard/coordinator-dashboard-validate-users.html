@@ -27,7 +27,7 @@
 						<p
 							th:text="'Address - ' + ${user.address} + ' - ' + ${user.complement}"></p>
 						<p th:text="'Resume - ' + ${user.resume}"></p>
-						<form action="#" th:action="@{/dashboard/coordinator/validate-users}"
+						<form action="#" th:action="@{/dashboard/coordinator/user/validate}"
 							method="post">
 							<input type="hidden" name="selectedUserId" th:value="${user.id}">
 							<input type="submit" class="btn btn-primary" value="Validate">

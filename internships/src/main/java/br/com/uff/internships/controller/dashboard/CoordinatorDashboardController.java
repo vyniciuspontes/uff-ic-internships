@@ -20,7 +20,7 @@ public class CoordinatorDashboardController {
 	@Autowired
 	private CoordinatorService service;
 	
-	@RequestMapping(value = {"/validate-users" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/user/validate" }, method = RequestMethod.GET)
 	public String dashboardHome(Model model) {
 		
 		List<User> nonValidatedUsers = service.findAllNonValidatedUsers();
@@ -30,11 +30,11 @@ public class CoordinatorDashboardController {
 		return "/dashboard/coordinator-dashboard-validate-users";
 	}
 	
-	@RequestMapping(value = {"/validate-users" }, method = RequestMethod.POST)
+	@RequestMapping(value = {"/user/validate" }, method = RequestMethod.POST)
 	public String validateUser(@RequestParam(name="selectedUserId") Integer selectedUserId) {
 		
 		this.service.validateUser(selectedUserId);
 		
-		return "redirect:/dashboard/coordinator/validate-users";
+		return "redirect:/dashboard/coordinator/user/validate";
 	}
 }

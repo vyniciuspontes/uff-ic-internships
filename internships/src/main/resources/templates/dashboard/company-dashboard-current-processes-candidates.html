@@ -6,14 +6,19 @@
 	<th:block
 		th:replace="fragments/general :: dashboard-navbar(brand='Company Dashboard', role='company')"></th:block>
 
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active" aria-current="page">Home</li>
+	</ol>
+
 	<div class="container">
 		<div class="card-columns mt-4" style="display: inline-block;">
 			<th:block th:each="internship : ${internships}">
 				<div class="card">
+
 					<div class="card-body">
 						<h4 class="card-title" th:text="${internship.title}"></h4>
 						<h5 th:text="${internship.company.name}"></h5>
-						
+
 						<p th:text="'Description - '+ ${internship.description}"></p>
 
 						<p th:text="'Allowance - '+ ${internship.allowance}"></p>

@@ -11,18 +11,6 @@
 	margin-top: 25%;
 }
 
-.form-horizontal .control-label {
-	display: inline-block;
-	vertical-align: middle;
-	float: none;
-}
-
-}
-.form-horizontal .controls {
-	display: inline-block;
-	margin-left: 20px;
-}
-
  @media (min-width:576px) {
       .card-columns {
         column-count: 1;
@@ -35,7 +23,7 @@
   }
   @media (min-width:992px) {
       .card-columns {
-        column-count: 3;
+        column-count: 4;
       }
   }
   @media (min-width:1200px) {

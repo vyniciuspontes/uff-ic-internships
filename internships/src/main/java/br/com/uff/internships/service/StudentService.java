@@ -149,4 +149,10 @@ public class StudentService {
 		internshipStudentStatusRepository.create(status);
 
 	}
+	
+	public List<InternshipStudentStatus> findLastStatusByInternship(Integer internshipId){
+		
+		return this.internshipStudentStatusRepository.findLastStatusByInternship(internshipId);
+	}
+	
 }

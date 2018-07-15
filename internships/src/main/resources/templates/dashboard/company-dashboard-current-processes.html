@@ -7,18 +7,32 @@
 		th:replace="fragments/general :: dashboard-navbar(brand='Company Dashboard', role='company')"></th:block>
 
 	<div class="container">
-		<div class="card-columns mt-4" style="display: inline-block;">
+
+		<div class="row">
+			<ol class="breadcrumb mt-3 bg-transparent">
+				<li class="breadcrumb-item" style="font-size: 20px">Internships</a></li>
+			</ol>
+		</div>
+
+		<div class="card-columns mt-auto" style="display: inline-block;">
 			<th:block th:each="internship : ${internships}">
 				<div class="card">
 					<div class="card-body">
 						<h4 class="card-title" th:text="${internship.title}"></h4>
 						<h5 th:text="${internship.company.name}"></h5>
-						
+
 						<p th:text="'Description - '+ ${internship.description}"></p>
 
 						<p th:text="'Allowance - '+ ${internship.allowance}"></p>
 
 						<p th:text="'Submit Deadline - '+ ${internship.deadline}"></p>
+
+						<form action="#"
+							th:action="@{/dashboard/company/internship/candidates}" method="get">
+							<input type="hidden" name="internshipId"
+								th:value="${internship.id}"> <input
+								type="submit" class="btn btn-primary" value="Candidates">
+						</form>
 
 					</div>
 				</div>

@@ -1,5 +1,6 @@
 package br.com.uff.internships.controller.dashboard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,12 +13,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.uff.internships.entity.Internship;
+import br.com.uff.internships.entity.InternshipStudentStatus;
 import br.com.uff.internships.entity.Skill;
 import br.com.uff.internships.form.InternshipRegistrationForm;
+import br.com.uff.internships.form.InternshipStudentStatusForm;
 import br.com.uff.internships.repository.SkillRepository;
 import br.com.uff.internships.service.CompanyService;
+import br.com.uff.internships.service.StudentService;
 
 @Controller
 @RequestMapping(value="/dashboard/company")
@@ -25,6 +30,9 @@ public class CompanyDashboardController {
 	
 	@Autowired
 	private CompanyService companyService;
+	
+	@Autowired
+	private StudentService studentService;
 	
 	@Autowired
 	private SkillRepository skillrepository;
@@ -66,11 +74,12 @@ public class CompanyDashboardController {
 	}
 	
 	@RequestMapping(value = {"/internship/candidates"}, method = RequestMethod.GET)
-	public String showProcessCandidates(Model model, Authentication authentication) {
+	public String showProcessCandidates(@RequestParam("internshipId") Integer internshipId, Model model,
+			Authentication authentication) {
 		
-		List<Internship> internships = this.companyService.findCompanyInternships(authentication.getName());
+		List<InternshipStudentStatus> studentsStatuses = this.studentService.findLastStatusByInternship(internshipId);
 		
-		model.addAttribute("internships", internships);
+		model.addAttribute("studentsStatuses", studentsStatuses);
 		
 		return "/dashboard/company-dashboard-current-processes-candidates";
 	}

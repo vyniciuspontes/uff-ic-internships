@@ -17,6 +17,7 @@ import br.com.uff.internships.form.CompanyRegistrationForm;
 import br.com.uff.internships.form.InternshipRegistrationForm;
 import br.com.uff.internships.repository.CompanyRepository;
 import br.com.uff.internships.repository.InternshipRepository;
+import br.com.uff.internships.repository.InternshipStudentRepository;
 import br.com.uff.internships.repository.UserRepository;
 
 @Service
@@ -30,6 +31,9 @@ public class CompanyService {
 
 	@Autowired
 	private InternshipRepository internshipRepository;
+	
+	@Autowired
+	private InternshipStudentRepository internshipStudentRepository;
 
 	@Autowired
 	private UserRepository userRepository;

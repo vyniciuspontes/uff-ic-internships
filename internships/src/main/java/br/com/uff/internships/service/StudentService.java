@@ -170,5 +170,12 @@ public class StudentService {
 
 		return this.internshipStudentStatusRepository.findLastStatusByInternship(internshipId);
 	}
+	
+	public List<InternshipStudentStatus> findToBeHiredStudents(){
+		
+		String status = InternshipStudentStatus.Status.COMPANY_APPROVED.name();
+		
+		return this.internshipStudentStatusRepository.findLastStatusByStatus(status);
+	}
 
 }

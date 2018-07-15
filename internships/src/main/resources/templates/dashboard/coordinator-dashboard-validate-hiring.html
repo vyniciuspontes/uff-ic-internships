@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head
+	th:include="fragments/general :: head(title='Coordinator Dashboard')"></head>
+<body>
+
+	<th:block
+		th:replace="fragments/general :: dashboard-navbar(brand='Coordinator Dashboard', role='coordinator', activePage='validateHiring')"></th:block>
+
+	<div class="container">
+		<div class="card-columns mt-4">
+			<th:block th:each="studentStatus : ${studentsStatuses}">
+
+				<div class="row justify-content-start">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<h3 class="card-title"
+									th:text="${studentStatus.internshipStudent.student.name} + ' > ' + ${studentStatus.internshipStudent.internship.company.name}"></h3>
+								<div class="card">
+									<div class="card-body">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-3 col-form-label">Email</label>
+											<div class="col-sm-9">
+												<input type="text" readonly class="form-control-plaintext"
+													id="staticEmail"
+													th:value="${studentStatus.internshipStudent.student.email}">
+											</div>
+											<label for="enrollment" class="col-sm-3 col-form-label">Enrollment</label>
+											<div class="col-sm-9">
+												<input type="text" readonly class="form-control-plaintext"
+													id="enrollment"
+													th:value="${studentStatus.internshipStudent.student.enrollmentCode}">
+											</div>
+											<label for="enrollment" class="col-sm-3 col-form-label">Born
+												Date</label>
+											<div class="col-sm-9">
+
+												<input type="text" readonly class="form-control-plaintext"
+													id="bornDate"
+													th:value="${studentStatus.internshipStudent.student.bornDate}">
+											</div>
+											<label for="status" class="col-sm-3 col-form-label">Status</label>
+											<div class="col-sm-9">
+												<input type="text" readonly class="form-control-plaintext"
+													id="status" th:value="${studentStatus.status}">
+											</div>
+											<label for="enrollment" class="col-sm-3 col-form-label">Resume</label>
+											<div class="col-sm-9">
+												<input type="text" readonly class="form-control-plaintext"
+													id="resume"
+													th:value="${studentStatus.internshipStudent.student?.resume}">
+											</div>
+										</div>
+									</div>
+								</div>
+								<form action="#"
+									th:action="@{/dashboard/coordinator/internship/validate-hiring}"
+									method="post">
+
+									<input type="hidden" name="studentId"
+										th:value="${studentStatus.internshipStudent.student.id}">
+									<input type="hidden" name="internshipId"
+										th:value="${studentStatus.internshipStudent.internship.id}">
+									<input type="hidden" name="currentStatus"
+										th:value="${studentStatus.status}">
+
+									<div class="form-row mt-1">
+										<div class="form-group col-md">
+											<div class="form-check"
+												th:id="'approval-input-' + ${studentStatus.internshipStudent.student.id}">
+												<input class="form-check-input" type="checkbox"
+													name="approved" value="true"
+													th:id="${studentStatus.internshipStudent.student.id}">
+												<label class="form-check-label"
+													th:for="${studentStatus.internshipStudent.student.id}">Approve
+													Hiring</label>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-md">
+											<label for="commentary">Commentary</label>
+											<textarea id="commentary" name="commentary"
+												class="form-control" required></textarea>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md">
+											<input type="submit" class="btn btn-primary"
+												value="Update Status">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</th:block>
+		</div>
+	</div>
+
+	<footer th:include="fragments/general :: footer"> </footer>
+
+</body>
+</html>

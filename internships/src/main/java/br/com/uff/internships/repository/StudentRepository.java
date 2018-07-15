@@ -24,4 +24,12 @@ public class StudentRepository extends AbstractDAOImpl<Student> {
 						+ "on s.id = ist.id.studentId where ist.id.internshipId=:internshipId", Student.class)
 				.setParameter("internshipId", internshipId).getResultList();
 	}
+	
+	public List<Student> findStudentByInternshipStatus(String status){
+		
+		return this.entityManager
+				.createQuery("select s from Student s join InternshipStudentStatus ist "
+						+ "on s.id = ist.internshipStudent.id.studentId where ist.status=:status", Student.class)
+				.setParameter("status", status).getResultList();
+	}
 }

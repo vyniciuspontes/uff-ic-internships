@@ -89,16 +89,16 @@ public class CompanyDashboardController {
 	@RequestMapping(value = { "/internship/candidate/update-status" }, method = RequestMethod.POST)
 	public String updateCantidateStatus(@RequestParam("internshipId") Integer internshipId,
 			@RequestParam("studentId") Integer studentId, @RequestParam("currentStatus") String currentStatus, 
-			@RequestParam("commentary") String commentary,@RequestParam(value = "approved", required = false) Boolean approved, Authentication authentication) {
+			@RequestParam("commentary") String commentary,@RequestParam(value = "approved", required = false) Boolean approved) {
 		
 		InternshipStudentStatus.Status newStatus = null;
 		
 		if(approved == null) {
-			newStatus = InternshipStudentStatus.Status.REFUSED;
+			newStatus = InternshipStudentStatus.Status.COMPANY_REFUSED;
 		}else if (currentStatus.equals(InternshipStudentStatus.Status.PROFILE_ANALYSIS.name())) {
 			newStatus = InternshipStudentStatus.Status.INTERVIEW_ANALYSIS;
 		}else if (currentStatus.equals(InternshipStudentStatus.Status.INTERVIEW_ANALYSIS.name())) {
-			newStatus = InternshipStudentStatus.Status.APPROVED;
+			newStatus = InternshipStudentStatus.Status.COMPANY_APPROVED;
 		}	
 		
 		this.studentService.saveNewStudentInternshipStatus(internshipId, studentId, newStatus, commentary);

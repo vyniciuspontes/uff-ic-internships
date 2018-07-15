@@ -4,7 +4,7 @@
 <body>
 
 	<th:block
-		th:replace="fragments/general :: dashboard-navbar(brand='Company Dashboard', role='company')">
+		th:replace="fragments/general :: dashboard-navbar(brand='Company Dashboard', role='company', activePage='currentProcesses')">
 
 	</th:block>
 
@@ -64,7 +64,8 @@
 										</div>
 									</div>
 								</div>
-								<th:block th:if="${!#strings.equals(studentStatus.status, 'APPROVED') and !#strings.equals(studentStatus.status, 'REFUSED')}">
+								<th:block th:if="${#strings.equals(studentStatus.status, 'PROFILE_ANALYSIS') or 
+									#strings.equals(studentStatus.status, 'INTERVIEW_ANALYSIS')}">
 									<form action="#"
 										th:action="@{/dashboard/company/internship/candidate/update-status}"
 										method="post">

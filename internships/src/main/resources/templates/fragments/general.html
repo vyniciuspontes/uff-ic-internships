@@ -14,7 +14,7 @@
 
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light"
-		th:fragment="dashboard-navbar(brand, role)">
+		th:fragment="dashboard-navbar(brand, role, activePage)">
 		<div class="container">
 			<a class="navbar-brand" th:text="${brand}"></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -32,28 +32,28 @@
 							Internship</a>
 					</li>
 					<li th:if="${#strings.equals(role, 'student')}" class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/student/internship/search' ? 'active':''}">
+						th:classappend="${#strings.equals(activePage, 'searchInternships') ? 'active':''}">
 						<a class="nav-link"
 						th:href="@{/dashboard/student/internship/search}">Search
 							Internships</a>
 					</li>
 					<li
 						th:if="${#strings.equals(role, 'student') or #strings.equals(role, 'company')}"
-						th:classappend="${#httpServletRequest.getRequestURI() == ('/dashboard/' + role + '/internship') ? 'active':''}">
+						th:classappend="${#strings.equals(activePage, 'currentProcesses') ? 'active':''}">
 						<a class="nav-link"
 						th:href="@{ ('/dashboard/' + ${role} + '/internship')}">Current
 							Processes</a>
 					</li>
 					<li th:if="${#strings.equals(role, 'coordinator')}"
 						class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/coordinator/user/validate' ? 'active':''}">
+						th:classappend="${#strings.equals(activePage, 'validateUsers') ? 'active':''}">
 						<a class="nav-link" href="/dashboard/coordinator/user/validate">Validate
 							Users</a>
 					</li>
 					<li th:if="${#strings.equals(role, 'coordinator')}"
 						class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard/coordinator/validate-hiring' ? 'active':''}">
-						<a class="nav-link" href="/dashboard/coordinator/validate-hiring">Validate
+						th:classappend="${#strings.equals(activePage, 'validateHiring') ? 'active':''}">
+						<a class="nav-link" href="/dashboard/coordinator/internship/validate-hiring">Validate
 							Hiring</a>
 					</li>
 				</ul>

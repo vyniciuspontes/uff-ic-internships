@@ -56,7 +56,7 @@ public class StudentService {
 
 	@Autowired
 	private InternshipRepository internshipRepository;
-	
+
 	@Autowired
 	private InternshipStudentStatusRepository internshipStudentStatusRepository;
 
@@ -123,7 +123,7 @@ public class StudentService {
 
 		return this.internshipRepository.findAllApplicableInternships(student.getId());
 	}
-	
+
 	public List<Internship> findAllStudentInternships(String studentEmail) {
 
 		Student student = (Student) this.userRepository.findByEmail(studentEmail);
@@ -142,17 +142,33 @@ public class StudentService {
 		internshipStudentRepository.create(newInternshipStudent);
 
 		InternshipStudentStatus status = new InternshipStudentStatus();
-		
+
 		status.setStatus(InternshipStudentStatus.Status.PROFILE_ANALYSIS.name());
 		status.setDatetime(new Date());
 		status.setInternshipStudent(newInternshipStudent);
 		internshipStudentStatusRepository.create(status);
 
 	}
-	
-	public List<InternshipStudentStatus> findLastStatusByInternship(Integer internshipId){
-		
+
+	@Transactional
+	public void saveNewStudentInternshipStatus(Integer internshipId, Integer studentId,
+			InternshipStudentStatus.Status newStatus, String commentary) {
+
+		InternshipStudentStatus status = new InternshipStudentStatus();
+
+		InternshipStudent internshipStudent = new InternshipStudent(new InternshipStudentPK(internshipId, studentId));
+
+		status.setInternshipStudent(internshipStudent);
+		status.setCommentary(commentary);
+		status.setDatetime(new Date());
+		status.setStatus(newStatus.name());
+
+		this.internshipStudentStatusRepository.create(status);
+	}
+
+	public List<InternshipStudentStatus> findLastStatusByInternship(Integer internshipId) {
+
 		return this.internshipStudentStatusRepository.findLastStatusByInternship(internshipId);
 	}
-	
+
 }

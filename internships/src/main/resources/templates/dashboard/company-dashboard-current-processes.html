@@ -26,14 +26,9 @@
 						<p th:text="'Allowance - '+ ${internship.allowance}"></p>
 
 						<p th:text="'Submit Deadline - '+ ${internship.deadline}"></p>
-
-						<form action="#"
-							th:action="@{/dashboard/company/internship/candidates}" method="get">
-							<input type="hidden" name="internshipId"
-								th:value="${internship.id}"> <input
-								type="submit" class="btn btn-primary" value="Candidates">
-						</form>
-
+						
+						<a th:href="@{'/dashboard/company/internship/' + ${internship.id} + '/candidate'}" class="btn btn-primary">Candidates</a>
+						
 					</div>
 				</div>
 			</th:block>

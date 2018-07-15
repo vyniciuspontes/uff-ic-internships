@@ -18,8 +18,8 @@ public class InternshipStudentStatusRepository extends AbstractDAOImpl<Internshi
 		String query = "select iss from InternshipStudentStatus iss \n" + 
 				"	join iss.internshipStudent as ist \n"
 				+ "where ist.internship.id=:internshipId and iss.datetime = (select max(isss.datetime) from InternshipStudentStatus isss "
-				+ "where isss.internshipStudent.student.id = iss.internshipStudent.student.id "
-				+ "and isss.internshipStudent.internship.id = iss.internshipStudent.internship.id)";
+				+ "join isss.internshipStudent as ists "
+				+ "where ists.student.id=ist.student.id and ists.internship.id = ist.internship.id)";
 		
 		return entityManager.createQuery(query, InternshipStudentStatus.class).setParameter("internshipId", internshipId ).getResultList();
 	}

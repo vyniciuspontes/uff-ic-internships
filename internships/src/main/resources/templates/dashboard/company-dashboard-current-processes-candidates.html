@@ -18,21 +18,100 @@
 			</ol>
 		</div>
 
-		<div class="card-columns mt-auto" style="display: inline-block;">
+		<div class="card-columns">
 			<th:block th:each="studentStatus : ${studentsStatuses}">
-				<div class="card">
-					<div class="card-body">
-						<h4 class="card-title" th:text="${studentStatus.internshipStudent.student.name}"></h4>
-						<h5 th:text="${studentStatus.internshipStudent.student.name}"></h5>
 
-						<p th:text="'Enrollment - '+ ${studentStatus.internshipStudent.student.enrollmentCode}"></p>
+				<div class="row justify-content-start">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<h3 class="card-title"
+									th:text="${studentStatus.internshipStudent.student.name}"></h3>
+								<div class="card">
+									<div class="card-body">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-3 col-form-label">Email</label>
+											<div class="col-sm-9">
+												<input type="text" readonly class="form-control-plaintext"
+													id="staticEmail"
+													th:value="${studentStatus.internshipStudent.student.email}">
+											</div>
+											<label for="enrollment" class="col-sm-3 col-form-label">Enrollment</label>
+											<div class="col-sm-9">
+												<input type="text" readonly class="form-control-plaintext"
+													id="enrollment"
+													th:value="${studentStatus.internshipStudent.student.enrollmentCode}">
+											</div>
+											<label for="enrollment" class="col-sm-3 col-form-label">Born
+												Date</label>
+											<div class="col-sm-9">
 
-						<p th:text="'Born Date - '+ ${studentStatus.internshipStudent.student.bornDate}"></p>
+												<input type="text" readonly class="form-control-plaintext"
+													id="bornDate"
+													th:value="${studentStatus.internshipStudent.student.bornDate}">
+											</div>
+											<label for="status" class="col-sm-3 col-form-label">Status</label>
+											<div class="col-sm-9">
+												<input type="text" readonly class="form-control-plaintext"
+													id="status" th:value="${studentStatus.status}">
+											</div>
+											<label for="enrollment" class="col-sm-3 col-form-label">Resume</label>
+											<div class="col-sm-9">
+												<input type="text" readonly class="form-control-plaintext"
+													id="resume"
+													th:value="${studentStatus.internshipStudent.student?.resume}">
+											</div>
+										</div>
+									</div>
+								</div>
+								<th:block th:if="${!#strings.equals(studentStatus.status, 'APPROVED') and !#strings.equals(studentStatus.status, 'REFUSED')}">
+									<form action="#"
+										th:action="@{/dashboard/company/internship/candidate/update-status}"
+										method="post">
 
-						<p th:text="'Resume - '+ ${studentStatus.internshipStudent.student?.resume}"></p>
-						
-						<p th:text="'Status - ' + ${studentStatus.status}"></p>
-								
+										<input type="hidden" name="studentId"
+											th:value="${studentStatus.internshipStudent.student.id}">
+										<input type="hidden" name="internshipId"
+											th:value="${studentStatus.internshipStudent.internship.id}">
+										<input type="hidden" name="currentStatus"
+											th:value="${studentStatus.status}">
+
+										<div class="form-row mt-1">
+											<div class="form-group col-md">
+												<div class="form-check"
+													th:id="'approval-input-' + ${studentStatus.internshipStudent.student.id}">
+													<input class="form-check-input" type="checkbox" name="approved" value="true"
+														th:id="${studentStatus.internshipStudent.student.id}">
+													<label
+														th:if="${#strings.equals(studentStatus.status, 'PROFILE_ANALYSIS')}"
+														class="form-check-label"
+														th:for="${studentStatus.internshipStudent.student.id}">Approve
+														Profile</label> <label
+														th:if="${#strings.equals(studentStatus.status, 'INTERVIEW_ANALYSIS')}"
+														class="form-check-label"
+														th:for="${studentStatus.internshipStudent.student.id}">Approve
+														Interview</label>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-row">
+											<div class="form-group col-md">
+												<label for="commentary">Commentary</label>
+												<textarea id="commentary" name="commentary"
+													class="form-control" required></textarea>
+											</div>
+										</div>
+										<div class="form-row">
+											<div class="form-group col-md">
+												<input type="submit" class="btn btn-primary"
+													value="Update Status">
+											</div>
+										</div>
+									</form>
+								</th:block>
+							</div>
+						</div>
 					</div>
 				</div>
 			</th:block>

@@ -88,7 +88,7 @@ public class InternshipStudentStatus implements Serializable {
 	
 	static public enum Status {
 		
-		PROFILE_ANALYSIS, INTERVIEW_ANALYSIS, INVITED  
+		PROFILE_ANALYSIS, INTERVIEW_ANALYSIS, APPROVED , REFUSED
 	}
 
 }

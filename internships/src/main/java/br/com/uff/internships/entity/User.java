@@ -40,7 +40,7 @@ public class User implements Serializable {
 	private String password;
 
 	// bi-directional many-to-one association to City
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "city_id", nullable = false)
 	private City city;
 

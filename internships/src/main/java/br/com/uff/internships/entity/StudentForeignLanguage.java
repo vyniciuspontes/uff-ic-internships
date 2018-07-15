@@ -20,12 +20,12 @@ public class StudentForeignLanguage implements Serializable {
 	private String level;
 
 	// bi-directional many-to-one association to ForeignLanguage
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "foreign_language_id", nullable = false, insertable = false, updatable = false)
 	private ForeignLanguage foreignLanguage;
 
 	// bi-directional many-to-one association to Student
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "student_id", nullable = false, insertable = false, updatable = false)
 	private Student student;
 

@@ -64,8 +64,70 @@
 										</div>
 									</div>
 								</div>
-								<th:block th:if="${#strings.equals(studentStatus.status, 'PROFILE_ANALYSIS') or 
+								<th:block
+									th:if="${#strings.equals(studentStatus.status, 'PROFILE_ANALYSIS') or 
 									#strings.equals(studentStatus.status, 'INTERVIEW_ANALYSIS')}">
+								<div class="form-row">
+									<div class="form-group col-md">
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="card">
+													<div class="card-body">
+														<h4 class="card-title">Foreign Languages</h4>
+														<th:block 
+														th:each="studentForeignLanguage : ${studentStatus.internshipStudent.student.studentForeignLanguages}">
+															<div class="form-row">
+																<div class="form-group col-md">
+																	<div class="row">
+																		<div class="col-md-8">
+																			<label
+																				for="foreign-language-${studentForeignLanguage.foreignLanguage.name}-level"
+																				th:text="${studentForeignLanguage.foreignLanguage.name}"></label>
+
+																		</div>
+																		<div class="col-md-3">
+																			<input type="text" readonly
+																				class="form-control-plaintext" id="${studentForeignLanguage.foreignLanguage.name}"
+																				th:value="${studentForeignLanguage.level}">
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</th:block>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="card">
+													<div class="card-body">
+														<h4 class="card-title">Skills</h4>
+														<th:block 
+														th:each="studentSkills : ${studentStatus.internshipStudent.student.studentSkills}">
+															<div class="form-row">
+																<div class="form-group col-md">
+																	<div class="row">
+																		<div class="col-md-8">
+
+																			<label for="skill-${studentSkills.skill.name}-level"
+																				th:text="${studentSkills.skill.name}"></label>
+
+																		</div>
+																		<div class="col-md-3">
+																			<input type="text" readonly
+																				class="form-control-plaintext" th:id="${studentSkills.skill.name}"
+																				th:value="${studentSkills.level}">
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</th:block>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
 									<form action="#"
 										th:action="@{/dashboard/company/internship/candidate/update-status}"
 										method="post">
@@ -81,7 +143,8 @@
 											<div class="form-group col-md">
 												<div class="form-check"
 													th:id="'approval-input-' + ${studentStatus.internshipStudent.student.id}">
-													<input class="form-check-input" type="checkbox" name="approved" value="true"
+													<input class="form-check-input" type="checkbox"
+														name="approved" value="true"
 														th:id="${studentStatus.internshipStudent.student.id}">
 													<label
 														th:if="${#strings.equals(studentStatus.status, 'PROFILE_ANALYSIS')}"

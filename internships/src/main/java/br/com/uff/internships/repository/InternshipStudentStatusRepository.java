@@ -24,10 +24,14 @@ public class InternshipStudentStatusRepository extends AbstractDAOImpl<Internshi
 
 	public List<InternshipStudentStatus> findLastStatusByInternship(Integer internshipId) {
 
-		String query = "select iss from InternshipStudentStatus iss \n" + "	join iss.internshipStudent as ist \n"
-				+ "where ist.internship.id=:internshipId and iss.datetime = (select max(isss.datetime) from InternshipStudentStatus isss "
-				+ "join isss.internshipStudent as ists "
-				+ "where ists.student.id=ist.student.id and ists.internship.id = ist.internship.id)";
+		String query = "select iss from InternshipStudentStatus iss \n" 
+				+ "	join fetch iss.internshipStudent as ist "
+				+ " join fetch ist.internship itn"
+				+ "	join fetch itn.company "
+				+ " join fetch ist.student as std "
+				+ " where ist.internship.id=:internshipId and iss.datetime = (select max(isss.datetime) from InternshipStudentStatus isss "
+				+ " join isss.internshipStudent as ists "
+				+ " where ists.student.id=ist.student.id and ists.internship.id = ist.internship.id)";
 
 		return entityManager.createQuery(query, InternshipStudentStatus.class)
 				.setParameter("internshipId", internshipId).getResultList();

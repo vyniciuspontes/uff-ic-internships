@@ -1,12 +1,10 @@
 package br.com.uff.internships.controller.dashboard;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.uff.internships.entity.Internship;
 import br.com.uff.internships.entity.InternshipStudentStatus;
 import br.com.uff.internships.entity.Skill;
+import br.com.uff.internships.entity.StudentSkill;
 import br.com.uff.internships.form.InternshipRegistrationForm;
-import br.com.uff.internships.form.InternshipStudentStatusForm;
 import br.com.uff.internships.repository.SkillRepository;
+import br.com.uff.internships.repository.StudentSkillRepository;
 import br.com.uff.internships.service.CompanyService;
 import br.com.uff.internships.service.StudentService;
 
@@ -38,6 +37,9 @@ public class CompanyDashboardController {
 
 	@Autowired
 	private SkillRepository skillrepository;
+	
+	@Autowired
+	private StudentSkillRepository studentSkillRepository;
 
 	@RequestMapping(value = { "/internship/new" }, method = RequestMethod.GET)
 	public String dashboardHome(Model model) {
@@ -80,9 +82,9 @@ public class CompanyDashboardController {
 			Authentication authentication) {
 
 		List<InternshipStudentStatus> studentsStatuses = this.studentService.findLastStatusByInternship(internshipId);
-
+		
 		model.addAttribute("studentsStatuses", studentsStatuses);
-
+		
 		return "/dashboard/company-dashboard-current-processes-candidates";
 	}
 	

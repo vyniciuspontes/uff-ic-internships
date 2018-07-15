@@ -165,6 +165,13 @@ public class StudentService {
 
 		this.internshipStudentStatusRepository.create(status);
 	}
+	
+	public List<InternshipStudentStatus> findStudentInternshipLastStatus(String studentEmail) {
+		
+		Student student = (Student) this.userRepository.findByEmail(studentEmail);
+		
+		return this.internshipStudentStatusRepository.findLastStatusesByStudent(student.getId());
+	}
 
 	public List<InternshipStudentStatus> findLastStatusByInternship(Integer internshipId) {
 

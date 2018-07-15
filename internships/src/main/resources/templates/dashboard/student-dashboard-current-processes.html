@@ -7,18 +7,27 @@
 
 	<div class="container">
 		<div class="card-columns mt-4" style="display: inline-block;">
-			<th:block th:each="internship : ${internships}">
+			<th:block th:each="studentStatus : ${studentStatuses}">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title" th:text="${internship.title}"></h4>
-						<h5 th:text="${internship.company.name}"></h5>
+						<h4 class="card-title" th:text="${studentStatus.internshipStudent.internship.title}"></h4>
+						<h5 th:text="${studentStatus.internshipStudent.internship.company.name}"></h5>
 
-						<p th:text="'Description - '+ ${internship.description}"></p>
+						<p th:text="'Description - '+ ${studentStatus.internshipStudent.internship.description}"></p>
+						
+						<p th:text="'Allowance - '+ ${studentStatus.internshipStudent.internship.allowance}"></p>
 
-						<p th:text="'Allowance - '+ ${internship.allowance}"></p>
-
-						<p th:text="'Submit Deadline - '+ ${internship.deadline}"></p>
-
+						<p th:text="'Submit Deadline - '+ ${studentStatus.internshipStudent.internship.deadline}"></p>
+						
+						<p th:text="'Address - '+ ${studentStatus.internshipStudent.internship.company.address} + 
+							' - ' + ${studentStatus.internshipStudent.internship.company.complement}"></p>
+							
+						<p th:text="'Last Status - '+ ${studentStatus.status}"></p>
+						
+						<p th:text="'Commentary - '+ ${studentStatus.commentary}"></p>
+						
+						<p th:text="'Date and Time - '+ ${studentStatus.datetime}"></p>
+						
 					</div>
 				</div>
 			</th:block>

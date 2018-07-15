@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.uff.internships.entity.Internship;
+import br.com.uff.internships.entity.InternshipStudentStatus;
 import br.com.uff.internships.service.StudentService;
 
 @Controller
@@ -40,9 +41,9 @@ public class StudentDashboardController {
 	@RequestMapping(value = { "/internship" }, method = RequestMethod.GET)
 	public String showCurrentProcesses(Model model, Authentication authentication) {
 		
-		List<Internship> internships = this.studentService.findAllStudentInternships(authentication.getName());
+		List<InternshipStudentStatus> studentStatuses = this.studentService.findStudentInternshipLastStatus(authentication.getName());
 		
-		model.addAttribute("internships", internships);
+		model.addAttribute("studentStatuses", studentStatuses);
 		return "/dashboard/student-dashboard-current-processes";
 	}
 

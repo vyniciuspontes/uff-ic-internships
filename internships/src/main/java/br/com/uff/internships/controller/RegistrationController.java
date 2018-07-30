@@ -103,7 +103,7 @@ public class RegistrationController {
 
 		this.companyService.saveNewCompany(companyForm);
 
-		modelAndView.setViewName("/login");
+		modelAndView.setViewName("redirect:/login");
 		return modelAndView;
 	}
 
@@ -126,7 +126,7 @@ public class RegistrationController {
 
 		this.studentService.saveNewStudent(studentForm);
 
-		modelAndView.setViewName("/login");
+		modelAndView.setViewName("redirect:/login");
 		return modelAndView;
 	}
 
